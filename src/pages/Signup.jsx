@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik';
 import { signUpValiationSchema } from '../utils/schema';
 import FormField, { styles } from '../components/FormField';
+import Copyright from '../components/Copyright';
 
 
 const SignupPage = () => {
@@ -83,10 +84,8 @@ const SignupPage = () => {
 
       </div>
 
-      {/* footer section */}
-      <footer className='w-full font-outfit h-auto flex justify-center items-center mt-2 self-end mb-2'>
-        <p className='text-md font-medium text-gray-600'>© FOREAL PROPERTY 2027</p>
-      </footer>
+      {/* copyright section */}
+      <Copyright />
 
     </div>
   )
