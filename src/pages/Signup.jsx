@@ -30,10 +30,10 @@ const SignupPage = () => {
   })
 
   return (
-    <div className='w-full h-screen flex flex-col bg-white'>
+    <div className='w-full min-h-dvh flex flex-col bg-white'>
 
       {/* Create Account Section */}
-      <div className='h-auto my-auto self-center py-10 items-center flex flex-col gap-3 w-[85%] sm:w-[70%] md:w-[50%] lg:w-[33%] xl:w-[23%]'>
+      <div className='h-auto my-auto self-center py-5 items-center flex flex-col gap-3 w-[85%] sm:w-[70%] md:w-[50%] lg:w-[33%] xl:w-[23%]'>
         <h1 className='text-center text-[31px] font-inter font-semibold leading-7.5'>Create an account</h1>
 
         {/* Form */}

@@ -29,7 +29,7 @@ const LoginPage = () => {
 
 
     return (
-        <div className='w-full h-screen flex flex-col bg-white'>
+        <div className='w-full min-h-dvh flex flex-col bg-white'>
 
             {/* Login section */}
             <div className='h-auto my-auto self-center items-center flex flex-col gap-3 w-[85%] sm:w-[70%] md:w-[50%] lg:w-[33%] xl:w-[23%]'>
