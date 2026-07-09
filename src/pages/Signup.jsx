@@ -2,31 +2,8 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik';
 import { signUpValiationSchema } from '../utils/schema';
+import FormField, { styles } from '../components/FormField';
 
-const styles = {
-  label: 'font-inter mt-1.5 mb-1.5 text-[16px] font-normal text-gray-600',
-  input: 'w-full font-outfit min-h-12 py-2.5 px-3.75 rounded-xl bg-white border border-solid border-[#cbd5e1] text-[#1e293b] text-[15px] outline-[#0e7090] ',
-  errors: 'text-[13px] font-inter ml-1 text-red-500 top-0 mb-2'
-}
-
-const FormField = ({ formik, name, label, type = 'text', placeholder }) => (
-  <div className='flex flex-col gap-1'>
-    <label htmlFor={name} className={styles.label}>{label}</label>
-    <div>
-      <input
-        id={name}
-        type={type}
-        name={name}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        value={formik.values[name]}
-        className={styles.input}
-        placeholder={placeholder}
-      />
-      {formik.touched[name] && formik.errors[name] && <p className={styles.errors}>{formik.errors[name]}</p>}
-    </div>
-  </div>
-)
 
 const SignupPage = () => {
   const navigate = useNavigate()
@@ -88,7 +65,7 @@ const SignupPage = () => {
               />
               <label htmlFor='terms' className='font-inter text-[17px] font-normal text-gray-600'>I agree to the terms and conditions</label>
             </div>
-            {formik.touched.agreeToTerms && formik.errors.agreeToTerms && <p className="text-[13px] font-inter ml-1 text-red-500 top-0 mb-2">{formik.errors.agreeToTerms}</p>}
+            {formik.touched.agreeToTerms && formik.errors.agreeToTerms && <p className={styles.errors}>{formik.errors.agreeToTerms}</p>}
           </div>
 
           <button
