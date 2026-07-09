@@ -1,82 +1,87 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useFormik } from 'formik';
-import { signUpValiationSchema } from '../utils/schema';
-import FormField, { styles } from '../components/FormField';
+import { Form, Input, Button, Checkbox } from 'antd'
+import { emailRules, nameRules, passwordRules } from '../utils/schema';
+import FormField from '../components/FormField';
 import Copyright from '../components/Copyright';
 
 
 const SignupPage = () => {
   const navigate = useNavigate()
+  const [form] = Form.useForm()
 
   const handleLoginPageNavigation = () => {
     navigate('/signin')
   }
-
-  // Handle form submission using Formik (validation and state management)
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      agreeToTerms: false
-    },
-    validationSchema: signUpValiationSchema,
-    onSubmit: (values, { resetForm }) => {
-      console.log('Form submitted: ', values)
-      resetForm()
-      alert('Form submitted successfully!')
-    }
-  })
+  
+  const onFinish = (values) => {
+     console.log('Form submitted: ', values)
+     form.resetFields()
+     alert('Creating the account is successfull!')
+  }
 
   return (
     <div className='w-full min-h-dvh flex flex-col bg-white'>
 
       {/* Create Account Section */}
-      <div className='h-auto my-auto self-center py-5 items-center flex flex-col gap-3 w-[85%] sm:w-[70%] md:w-[50%] lg:w-[33%] xl:w-[23%]'>
+      <div className='h-auto my-auto self-center py-5 items-center flex flex-col gap-2 w-[85%] sm:w-[70%] md:w-[50%] lg:w-[33%] xl:w-[23%]'>
         <h1 className='text-center text-[31px] font-inter font-semibold leading-7.5'>Create an account</h1>
 
         {/* Form */}
-        <form onSubmit={formik.handleSubmit} className='flex flex-col gap-1.5 mt-3 self-center'>
+        <Form 
+          form={form}
+          layout='vertical'
+          className='w-full'
+          onFinish={onFinish}
+          >
 
-          {/* Name field */}
-          <FormField formik={formik} name='name' label='Name' type='text' placeholder='Enter your name' />
+          {/* Name form field */}
+          <FormField label='Name' name='Name' type='text' placeholder='Enter your name'
+            rules={nameRules} />
 
-          {/* Email field */}
-          <FormField formik={formik} name='email' label='Email' type='email' placeholder='Enter your email address' />
+          {/* Email form field */}
+          <FormField label='Email' name='Email' type='email' placeholder='Enter your email'
+            rules={emailRules} />
 
-          {/* Password field */}
-          <FormField formik={formik} name='password' label='Password' type='password' placeholder='Enter your password' />
+          {/* Password form field */}
+          <FormField label='Password' name='Password' type='password' placeholder='Enter your password'
+            rules={passwordRules} />
 
-          {/* Confirm Password field */}
-          <FormField formik={formik} name='confirmPassword' label='Confirm Password' type='password' placeholder='Confirm your password' />
-
-          {/* Checkbox for terms */}
-          <div className='flex flex-col mt-2'>
-            <div className='flex  items-center gap-2'>
-              <input
-                type='checkbox'
-                id='terms'
-                name='agreeToTerms'
-                className='w-4 h-4 text-[#344054]'
-                checked={formik.values.agreeToTerms}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              <label htmlFor='terms' className='font-inter text-[17px] font-normal text-gray-600'>I agree to the terms and conditions</label>
-            </div>
-            {formik.touched.agreeToTerms && formik.errors.agreeToTerms && <p className={styles.errors}>{formik.errors.agreeToTerms}</p>}
+          <FormField label='Confirm Password' name='ConfirmPassword' type='password' placeholder='Confirm your password'
+            dependencies={['Password']}
+            rules={[
+              { required: true, message: 'Confirm Password is required' },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('Password') === value) {
+                    return Promise.resolve()
+                  }
+                  return Promise.reject(new Error('Passwords do not match'))
+                }
+              })
+            ]} />
+          
+          <div className=''>
+          <Form.Item 
+           name='agreeToTerms'
+           valuePropName='checked'
+           rules={[
+            {
+              validator: (_, value) =>
+                value
+                  ? Promise.resolve()
+                  : Promise.reject(new Error('You must agree to terms and conditions'))
+            }
+           ]} 
+          >
+            <Checkbox>I agree to the terms and conditions</Checkbox>
+          </Form.Item>
           </div>
-
-          <button
-            type='submit'
-            className='self-center font-inter rounded-sm w-full h-8 flex justify-center mt-2 items-center text-[14px] font-medium leading-[14.5] cursor-pointer
-                     border border-[#164c63] hover:border-0 bg-[#164c63] hover:bg-[#2a6d8a] transition-colors duration-300 py-2.5 px-4.5 text-white outline-none'>
+          
+          <Button type='primary' htmlType='submit' block>
             Sign up
-          </button>
-
-        </form>
+          </Button>
+        </Form>
 
         {/* log in page navigation */}
         <p className='text-[16.5px] text-center mt-1 font-inter font-medium text-black'>Already have a account?   <span onClick={() => handleLoginPageNavigation()}
