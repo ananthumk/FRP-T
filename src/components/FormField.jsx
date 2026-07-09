@@ -8,7 +8,7 @@ export const styles = {
 
 const FormField = ({ formik, name, label, type = 'text', placeholder }) => (
     <div className='flex flex-col gap-1'>
-        <label htmlFor={name} className={styles.label}>Email</label>
+        <label htmlFor={name} className={styles.label}>{label}</label>
         <div>
             <input
                 type={type}
