@@ -1,9 +1,11 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Form, Input, Button, Checkbox } from 'antd'
+import { Form, Input, Button, Checkbox, message } from 'antd'
 import FormField from '../components/FormField';
 import Copyright from '../components/Copyright';
 import { emailRules, passwordRules } from '../utils/schema';
+import { customRequiredMark } from '../utils/RequiredMark';
+import { checkCredentials } from '../mock/mockUser';
 
 
 const LoginPage = () => {
@@ -15,11 +17,20 @@ const LoginPage = () => {
     }
 
     const onFinish = (values) => {
-        console.log('Form submitted: ', values)
+        const result = checkCredentials(values.Email, values.Password)
+        console.log(result)
+        if (!result) {
+            message.error('Invalid Credentials')
+            return 
+        }
+
+        message.success('Logged in successfully')
         form.resetFields()
-        alert('Form submitted successfully!')
-        
+        setTimeout(() => {
+            navigate('/home')
+        }, 1500);
     }
+
 
 
     return (
@@ -33,7 +44,7 @@ const LoginPage = () => {
                 />
 
                 <div className='w-full h-auto flex flex-col gap-1 justify-center items-center mt-1'>
-                    <h1 className='text-[31px] font-inter relative font-semibold leading-7.5'>Log in</h1>
+                    <h1 className='text-[31px] font-inter relative font-semibold leading-7.5'>LOGIN</h1>
 
                     {/* Form */}
 
@@ -42,6 +53,7 @@ const LoginPage = () => {
                         layout='vertical'
                         onFinish={onFinish}
                         className='w-full'
+                        requiredMark={customRequiredMark}
                     >
 
                         {/* Email Form Field */}
@@ -60,10 +72,10 @@ const LoginPage = () => {
                                 <Checkbox>Remember Me</Checkbox>
                             </Form.Item>
 
-                            <a href='#' className='text-[#010506]! text-[16px] hover:text-[#0e7090]! transition-colors duration-300'>Forgot Password</a>
+                            <a onClick={() => navigate('/forgot-password')} className='text-[#010506]! text-[16px] hover:text-[#0e7090]! transition-colors duration-300'>Forgot Password</a>
                         </div>
                         <Form.Item className='flex justify-center'>
-                            <Button type='primary' htmlType='submit' className='w-37.5!'>Sign in</Button>
+                            <Button type='primary' htmlType='submit' className='w-37.5!'>SIGN IN</Button>
                         </Form.Item>
                     </Form>
 

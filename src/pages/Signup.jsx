@@ -4,6 +4,7 @@ import { Form, Input, Button, Checkbox } from 'antd'
 import { emailRules, nameRules, passwordRules } from '../utils/schema';
 import FormField from '../components/FormField';
 import Copyright from '../components/Copyright';
+import { customRequiredMark } from '../utils/RequiredMark';
 
 
 const SignupPage = () => {
@@ -33,6 +34,7 @@ const SignupPage = () => {
           layout='vertical'
           className='w-full'
           onFinish={onFinish}
+          requiredMark={customRequiredMark}
           >
 
           {/* Name form field */}
