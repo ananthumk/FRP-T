@@ -1,6 +1,6 @@
 const mockUser = [
-    { email: 'arun@example.com', password: 'password@123' },
-    { email: 'rahul@example.com', password: 'password' }
+    { email: 'arun@example.com', password: 'arun@1234' },
+    { email: 'rahul@example.com', password: 'rahul@1234' }
 ]
 
 let activeResetEmail = null
