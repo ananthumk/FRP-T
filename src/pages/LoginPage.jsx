@@ -21,14 +21,13 @@ const LoginPage = () => {
         console.log(result)
         if (!result) {
             message.error('Invalid Credentials')
-            return 
+            return
         }
 
         message.success('Logged in successfully')
         form.resetFields()
-        setTimeout(() => {
-            navigate('/home')
-        }, 1500);
+        setTimeout(() => {navigate('/list-property')}, 1000)
+        
     }
 
 
@@ -82,8 +81,15 @@ const LoginPage = () => {
                 </div>
 
                 {/* sign up page navigation */}
-                <p className='text-[16.5px] font-inter font-medium text-black mt-1'>Don't have an account?   <span onClick={() => navigateToSignup()}
-                    className='text-[#0d384a] font-semibold cursor-pointer hover:text-blue-500 transition-colors duration-200 underline'> Signup</span></p>
+                <p className='text-[16.5px] font-inter font-medium text-black mt-1'>Don't have an account?   <span onClick={navigateToSignup}
+                    className='text-[#0d384a] font-semibold cursor-pointer hover:text-blue-500 transition-colors duration-200 underline'
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ''){
+                            navigateToSignup()
+                        }
+                    }}
+                    > Signup</span></p>
 
             </div >
 

@@ -1,7 +1,8 @@
 
 export const nameRules = [
   { required: true, message: 'Name is required' },
-  { min: 3, message: 'Name should have at least 3 character' }
+  { min: 3, message: 'Name should have at least 3 character' },
+  { pattern: /^[A-Za-z\s]+$/, message: 'Name can only contain letters'}
 ]
 
 export const emailRules = [
@@ -13,7 +14,13 @@ export const emailRules = [
 
 export const passwordRules = [
   { required: true, message: 'Password is required' },
-  { min: 8, message: 'Password should have at least 8 character' },
   { pattern: /^\S+$/, message: 'Space is not allowed'},
-  { max: 15, message: 'Password can have at most 15 character'},
+  {
+    validator: (_, value) => {
+      if (!value || (value.length >=8 && value.length <= 15)) {
+        return Promise.resolve()
+      }
+      return Promise.reject(new Error('Password only allow 8 to 15 character'))
+    }
+  }
 ]
