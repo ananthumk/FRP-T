@@ -35,13 +35,14 @@ const ListProperties = () => {
         "Pages": 1
     })
     const [category, setCategory] = useState('')
+    const [loading, setLoading] = useState(true)
 
 
     const fetchData = async () => {
+        setLoading(true)
         try {
-
+           
             const responseData = await getPropertyList(jText)
-            console.log(responseData)
 
             const updatedResponse = {
                 stats: {
@@ -68,9 +69,10 @@ const ListProperties = () => {
             }
 
             setData(updatedResponse)
+            setLoading(false)
 
         } catch (error) {
-            console.log(error)
+            setLoading(false)
         }
     }
 
@@ -117,7 +119,7 @@ const ListProperties = () => {
                     <PropertyFilters searchQuery={jText.Search} onSearchCommit={handleSearch} category={jText.PropertyFor || ''}
                         onCategoryChange={handleCategoryChange} />
 
-                    <ReusableTable columns={tableColumns} data={data.propertyListing} loading={false} pagination={false} />
+                    <ReusableTable columns={tableColumns} data={data.propertyListing} loading={loading} pagination={false} />
 
                     <Pagination align='center' defaultCurrent={1} total={data.totalCount || 0} showSizeChanger={false}
                         responsive showLessItems onChange={(page) => setJText((prev) => ({ ...prev, Pages: page }))} />
