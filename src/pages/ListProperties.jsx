@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { HomeOutlined, CheckOutlined, RiseOutlined, VerticalAlignMiddleOutlined } from '@ant-design/icons'
 import axios from 'axios'
 import Navbar from '../components/Navbar'
 import StatsCard from '../components/StatsCard'
@@ -7,20 +6,8 @@ import { Button, Form, Input, Pagination, Select } from 'antd'
 import ReusableTable from '../components/Table'
 import PropertyFilters from '../components/PropertyFilters'
 import { getPropertyList } from '../api/apiCalls'
+import { pageLimit, statsConfig, tableColumns } from '../utils/KeyValues'
 
-const statsConfig = [
-    { key: 'all', label: 'All Properties', icon: HomeOutlined, color: '#03071e' },
-    { key: 'sales', label: 'Sales', icon: CheckOutlined, color: '#fca311' },
-    { key: 'rental', label: 'Rental', icon: RiseOutlined, color: '#583101' },
-    { key: 'archived', label: 'Archived', icon: VerticalAlignMiddleOutlined, color: '#70e000' },
-]
-
-const tableColumns = [
-    { title: 'Address', dataIndex: 'getFormatedAddress', key: 'getFormatedAddress' },
-    { title: 'Type', dataIndex: 'sPropertyType', key: 'sPropertyType' },
-    { title: 'Agent', dataIndex: 'agentName', key: 'agentName' },
-    { title: 'Agent Email', dataIndex: 'agentEmail', key: 'agentEmail' },
-]
 
 const ListProperties = () => {
 
@@ -29,10 +16,11 @@ const ListProperties = () => {
         "SortBy": "CreatedDate",
         "SortOrder": "Desc",
         "AgencyId": 1,
+        "RecordsPerPage": 10,
         "Search": "",
         "PropertyFor": null,
         "LoggedUserId": 2,
-        "Pages": 1
+        "PageNo": 1
     })
     const [category, setCategory] = useState('')
     const [loading, setLoading] = useState(true)
@@ -78,15 +66,18 @@ const ListProperties = () => {
 
     useEffect(() => {
         fetchData()
-        console.log(jText)
     }, [jText])
 
     const handleCategoryChange = (value) => {
-        setJText((prev) => ({ ...prev, PropertyFor: value || null, Pages: 1 }))
+        setJText((prev) => ({ ...prev, PropertyFor: value || null, PageNo: 1 }))
     }
 
     const handleSearch = (value) => {
-        setJText((prev) => ({ ...prev, Search: value, Pages: 1 }))
+        setJText((prev) => ({ ...prev, Search: value, PageNo: 1 }))
+    }
+
+    const handleRecordsPerPage = (value) => {
+        setJText((prev) => ({...prev, RecordsPerPage: value}))
     }
 
     return (
@@ -103,7 +94,8 @@ const ListProperties = () => {
                 </div>
 
                 <div className='w-full md:w-[90%] mx-auto space-y-7'>
-
+                    
+                    {/* Stats Card */}
                     <div className='mt-8 grid grid-cols-2 md:grid-cols-4 gap-4'>
                         {statsConfig.map((stat) => (
                             <StatsCard
@@ -116,13 +108,17 @@ const ListProperties = () => {
                         ))}
                     </div>
 
+                    {/* Filtering Tabs */}
                     <PropertyFilters searchQuery={jText.Search} onSearchCommit={handleSearch} category={jText.PropertyFor || ''}
-                        onCategoryChange={handleCategoryChange} />
-
+                        onCategoryChange={handleCategoryChange} limit={jText.RecordsPerPage || 10} pageLimit={pageLimit} 
+                        onChangeRecordsPerPage={handleRecordsPerPage} />
+                    
+                    {/* Table */}
                     <ReusableTable columns={tableColumns} data={data.propertyListing} loading={loading} pagination={false} />
-
+                    
+                    {/* Pagination */}
                     <Pagination align='center' defaultCurrent={1} total={data.totalCount || 0} showSizeChanger={false}
-                        responsive showLessItems onChange={(page) => setJText((prev) => ({ ...prev, Pages: page }))} />
+                        responsive showLessItems onChange={(page) => setJText((prev) => ({ ...prev, PageNo: page }))} />
 
                 </div>
             </div>

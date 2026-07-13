@@ -3,32 +3,42 @@ import React, { useState } from 'react'
 
 const categoryOptions = [
     { value: '', label: 'All' },
-    { value: 'sales', label: 'Sales' },
-    { value: 'rental', label: 'Rental' },
-    { value: 'archived', label: 'Archived' }
+    { value: 1, label: 'Sales' },
+    { value: 2, label: 'Rental' },
+    { value: 3, label: 'Archived' }
 ]
 
-const PropertyFilters = ({ searchQuery = '', onSearchCommit, category, onCategoryChange }) => {
+const PropertyFilters = ({ searchQuery = '', onSearchCommit, category, onCategoryChange, limit, pageLimit, onChangeRecordsPerPage }) => {
 
     const [searchInput, setSearchInput] = useState(searchQuery)
 
     return (
-        <div className='flex items-center justify-between bg-transparent'>
-            <Input.Search placeholder='Search here..' className='w-[65%]! md:w-[40%]!'
+        <div className='flex flex-col gap-3 md:flex-row items-center justify-between bg-transparent'>
+            <Input.Search placeholder='Search here..' className='w-full! md:w-[40%]!'
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 onSearch={onSearchCommit}
                 allowClear
             />
 
-            <Select
-                showSearch
-                optionFilterProp='label'
-                value={category}
-                className='w-20 md:w-30'
-                onChange={onCategoryChange}
-                options={categoryOptions}
-            />
+            <div className='grid grid-cols-2 w-full md:w-auto md:flex md:items-center gap-3'>
+                <Select
+                    optionFilterProp='label'
+                    value={limit}
+                    className='md:w-30'
+                    onChange={onChangeRecordsPerPage}
+                    options={pageLimit}
+                />
+
+                <Select
+                    showSearch
+                    optionFilterProp='label'
+                    value={category}
+                    className='md:w-30'
+                    onChange={onCategoryChange}
+                    options={categoryOptions}
+                />
+            </div>
 
 
         </div>

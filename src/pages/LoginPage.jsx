@@ -89,7 +89,7 @@ const LoginPage = () => {
                             navigateToSignup()
                         }
                     }}
-                    > Signup</span></p>
+                    > SIGN UP</span></p>
 
             </div >
 
