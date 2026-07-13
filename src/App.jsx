@@ -5,6 +5,7 @@ import HomePage from './pages/Home'
 import './App.css'
 import ForgetPassword from './pages/ForgetPassword'
 import ResetPassword from './pages/ResetPassword'
+import ListProperties from './pages/ListProperties'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path='/home' element={<HomePage />} />
         <Route path='/forgot-password' element={<ForgetPassword />} />
         <Route path='reset-password' element={<ResetPassword />} />
+        <Route path='/list-property' element={<ListProperties />} />
       </Routes>
    </div>
   )

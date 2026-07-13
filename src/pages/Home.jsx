@@ -4,9 +4,9 @@ import { SearchOutlined } from '@ant-design/icons'
 import { Button } from 'antd'
 
 const statsSection = [
-  {number: 1, content: 'Locations'},
-  {number: '4K+', content: 'Happy Customers'},
-  {number: '500+', content: 'Property Listing'},
+  {id: 1, number: 1, content: 'Locations'},
+  {id: 1, number: '4K+', content: 'Happy Customers'},
+  {id: 1, number: '500+', content: 'Property Listing'},
 ]
 
 const HomePage = () => {
