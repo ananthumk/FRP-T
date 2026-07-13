@@ -30,7 +30,7 @@ const SignupPage = () => {
     message.success('Account created successfully!')
     setTimeout(() => {
       navigate('/list-property')
-    }, 1000);
+    }, 250);
     } finally {
       setSubmitting(false)
     }

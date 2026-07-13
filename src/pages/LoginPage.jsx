@@ -26,7 +26,7 @@ const LoginPage = () => {
 
         message.success('Logged in successfully')
         form.resetFields()
-        setTimeout(() => {navigate('/list-property')}, 1000)
+        setTimeout(() => {navigate('/list-property')}, 250)
         
     }
 
