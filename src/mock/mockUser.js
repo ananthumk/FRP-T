@@ -1,15 +1,36 @@
-const mockUser = [
+const lsText = import.meta.env.LOCALSTORAGE_KEY
+
+const defaultUser = [
     { name: 'Arun', email: 'arun@example.com', password: 'arun@1234' },
     { name: 'Rahul', email: 'rahul@example.com', password: 'rahul@1234' }
 ]
 
+
+// Load user from localstorage
+const loadUsers = () => {
+    try {
+        const stored = localStorage.getItem(lsText)
+        return stored ? JSON.parse(stored) : defaultUser
+    } catch (error) {
+        return defaultUser
+    }
+}
+
+// Store users to localStorage
+const saveUser = (users) => {
+    localStorage.setItem(lsText, JSON.stringify(users))
+}
+
+let mockUser = loadUsers()
 let activeResetEmail = null
+
 
 export const getUserByEmail = (email) => {
     const currentEmail = email
     return mockUser.find((user) => user.email === currentEmail)
 }
 
+// Add user
 export const addUserByEmail = (email, password, name = '') => {
 
     const existingUser = getUserByEmail(email)
@@ -22,6 +43,8 @@ export const addUserByEmail = (email, password, name = '') => {
         email: email,
         password
     })
+
+    saveUser(mockUser)
 
     return { success: true, message: 'User added successfully' }
 }
@@ -37,6 +60,7 @@ export const updateUserPassword = (email, newPassword) => {
     if (!user) return false
 
     user.password = newPassword
+    saveUser(mockUser)
     return true
 }
 

@@ -79,7 +79,7 @@ const SignupPage = () => {
               })
             ]} />
 
-          <div className=''>
+          
             <Form.Item
               name='agreeToTerms'
               valuePropName='checked'
@@ -94,7 +94,7 @@ const SignupPage = () => {
             >
               <Checkbox>I agree to the terms and conditions</Checkbox>
             </Form.Item>
-          </div>
+          
 
           <Form.Item className='flex justify-center'>
             <Button type='primary' htmlType='submit' loading={submitting} className='w-37.5!' block>
