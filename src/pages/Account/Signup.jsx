@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Form, Input, Button, Checkbox, message } from 'antd'
-import { emailRules, nameRules, passwordRules } from '../utils/schema';
-import FormField from '../components/FormField';
-import Copyright from '../components/Copyright';
-import { customRequiredMark } from '../utils/RequiredMark';
-import { addUserByEmail } from '../mock/mockUser';
+import { emailRules, nameRules, passwordRules } from '../../utils/schema';
+import FormField from '../../components/FormField';
+import Copyright from '../../components/Copyright';
+import { customRequiredMark } from '../../utils/RequiredMark';
+import { addUserByEmail } from '../../mock/mockUser';
 
 
 const SignupPage = () => {

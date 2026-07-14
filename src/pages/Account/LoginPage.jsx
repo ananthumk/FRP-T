@@ -1,11 +1,11 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Form, Input, Button, Checkbox, message } from 'antd'
-import FormField from '../components/FormField';
-import Copyright from '../components/Copyright';
-import { emailRules, passwordRules } from '../utils/schema';
-import { customRequiredMark } from '../utils/RequiredMark';
-import { checkCredentials } from '../mock/mockUser';
+import FormField from '../../components/FormField';
+import Copyright from '../../components/Copyright';
+import { emailRules, passwordRules } from '../../utils/schema';
+import { customRequiredMark } from '../../utils/RequiredMark';
+import { checkCredentials } from '../../mock/mockUser';
 
 
 const LoginPage = () => {
@@ -37,7 +37,7 @@ const LoginPage = () => {
 
             {/* Login section */}
             <div className='h-auto my-auto self-center items-center flex flex-col gap-3 w-[85%] sm:w-[70%] md:w-[50%] lg:w-[33%] xl:w-[23%]'>
-                <img src='https://forealproperty.com.au:8001/assets/images/mainLogo.png'
+                <img src={`${import.meta.env.VITE_API_IMG_URL}/assets/images/mainLogo.png`}
                     className='h-31.5 w-38 mt-5 bottom-2.5'
                     alt='company-logo'
                 />

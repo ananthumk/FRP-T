@@ -2,11 +2,11 @@ import { Button, Form, Input, message } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { KeyOutlined, ArrowLeftOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
-import FormField from '../components/FormField'
-import { emailRules } from '../utils/schema'
-import Copyright from '../components/Copyright'
-import { customRequiredMark } from '../utils/RequiredMark'
-import { getUserByEmail, setActiveResetEmail } from '../mock/mockUser'
+import FormField from '../../components/FormField'
+import { emailRules } from '../../utils/schema'
+import Copyright from '../../components/Copyright'
+import { customRequiredMark } from '../../utils/RequiredMark'
+import { getUserByEmail, setActiveResetEmail } from '../../mock/mockUser'
 
 const OTP_VALIDITY_SECONDS = 1 * 60
 

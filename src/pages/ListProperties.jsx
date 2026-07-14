@@ -5,8 +5,12 @@ import StatsCard from '../components/StatsCard'
 import { Button, Form, Input, Pagination, Select } from 'antd'
 import ReusableTable from '../components/Table'
 import PropertyFilters from '../components/PropertyFilters'
-import { getPropertyList } from '../api/apiCalls'
+import APIhandler from '../client/APIhandler'
 import { pageLimit, statsConfig, tableColumns } from '../utils/KeyValues'
+import ReusableButton from '../components/ReusableButton'
+import AddProperty from '../components/Popup/AddProperty'
+import { PlusOutlined } from '@ant-design/icons'
+import '../theme/listProperties.css'
 
 
 const ListProperties = () => {
@@ -24,13 +28,14 @@ const ListProperties = () => {
     })
     const [category, setCategory] = useState('')
     const [loading, setLoading] = useState(true)
+    const [popOver, setPopOver] = useState(false)
 
-
+    // Fetching Properties List
     const fetchData = async () => {
         setLoading(true)
         try {
-           
-            const responseData = await getPropertyList(jText)
+
+            const responseData = await APIhandler('post', '/property/getpropertylist', jText)
 
             const updatedResponse = {
                 stats: {
@@ -65,6 +70,7 @@ const ListProperties = () => {
     }
 
     useEffect(() => {
+        // setPopOver(false)
         fetchData()
     }, [jText])
 
@@ -72,12 +78,17 @@ const ListProperties = () => {
         setJText((prev) => ({ ...prev, PropertyFor: value || null, PageNo: 1 }))
     }
 
+    // handling search functionality
     const handleSearch = (value) => {
         setJText((prev) => ({ ...prev, Search: value, PageNo: 1 }))
     }
 
     const handleRecordsPerPage = (value) => {
-        setJText((prev) => ({...prev, RecordsPerPage: value}))
+        setJText((prev) => ({ ...prev, RecordsPerPage: value }))
+    }
+
+    const handleAddProperty = () => {
+        setPopOver(true)
     }
 
     return (
@@ -86,15 +97,28 @@ const ListProperties = () => {
 
             <div className='py-8 px-7'>
 
-                <div className='flex flex-col'>
-                    <h1 className='text-2xl text-[#001524] font-bold!'>Discover Properties That Match's You</h1>
-                    <p className='text-[17px] text-[#495057] font-medium! md:w-[58%]'>Explore verified listings for homes, apartments, villas and commercial spaces available for sale or rent in
-                        your preferred location
-                    </p>
+                <div className='flex justify-between'>
+
+                    <div className='flex flex-col'>
+                        <h1 className='text-2xl text-[#001524] font-bold!'>Discover Properties That Match's You</h1>
+                        <p className='text-[17px] text-[#495057] font-medium! md:w-[58%]'>Explore verified listings for homes, apartments, villas and commercial spaces available for sale or rent in
+                            your preferred location
+                        </p>
+                    </div>
+
+                    <ReusableButton type='primary' onClick={handleAddProperty} content={
+                        <>
+                            <span className='md:hidden'><PlusOutlined /></span>
+                            <span className='hidden md:inline'>Add Property</span>
+                        </>
+                    } />
+
                 </div>
 
+                {popOver && <AddProperty onClose={() => setPopOver(false)} />}
+
                 <div className='w-full md:w-[90%] mx-auto space-y-7'>
-                    
+
                     {/* Stats Card */}
                     <div className='mt-8 grid grid-cols-2 md:grid-cols-4 gap-4'>
                         {statsConfig.map((stat) => (
@@ -110,12 +134,12 @@ const ListProperties = () => {
 
                     {/* Filtering Tabs */}
                     <PropertyFilters searchQuery={jText.Search} onSearchCommit={handleSearch} category={jText.PropertyFor || ''}
-                        onCategoryChange={handleCategoryChange} limit={jText.RecordsPerPage || 10} pageLimit={pageLimit} 
+                        onCategoryChange={handleCategoryChange} limit={jText.RecordsPerPage || 10} pageLimit={pageLimit}
                         onChangeRecordsPerPage={handleRecordsPerPage} />
-                    
+
                     {/* Table */}
                     <ReusableTable columns={tableColumns} data={data.propertyListing} loading={loading} pagination={false} />
-                    
+
                     {/* Pagination */}
                     <Pagination align='center' defaultCurrent={1} total={data.totalCount || 0} showSizeChanger={false}
                         responsive showLessItems onChange={(page) => setJText((prev) => ({ ...prev, PageNo: page }))} />

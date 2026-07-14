@@ -2,11 +2,11 @@ import React from 'react'
 import { SafetyOutlined, ArrowLeftOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { Button, Form, message } from 'antd'
-import FormField from '../components/FormField'
-import { passwordRules } from '../utils/schema'
-import Copyright from '../components/Copyright'
-import { customRequiredMark } from '../utils/RequiredMark'
-import { getActiveResetEmail, updateUserPassword, setActiveResetEmail } from '../mock/mockUser'
+import FormField from '../../components/FormField'
+import { passwordRules } from '../../utils/schema'
+import Copyright from '../../components/Copyright'
+import { customRequiredMark } from '../../utils/RequiredMark'
+import { getActiveResetEmail, updateUserPassword, setActiveResetEmail } from '../../mock/mockUser'
 
 const ResetPassword = () => {
     const navigate = useNavigate()

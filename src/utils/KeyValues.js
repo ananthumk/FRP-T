@@ -23,3 +23,16 @@ export const pageLimit = [
 ]
  
 // --------------------
+
+// Add Property
+export const propertyType = [
+    { value: 'home', label: 'Home' },
+    { value: 'apartment', label: 'Apartment' },
+    { value: 'flat', label: 'Flat' },
+    { value: 'alpine', label: 'Alpine' }
+]
+
+export const propertyfor = [
+    {value: 'sale', label: 'Sale'},
+    {value: 'rental', label: 'Rental'}
+]

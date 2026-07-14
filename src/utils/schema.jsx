@@ -1,3 +1,4 @@
+import { message } from "antd"
 
 export const nameRules = [
   { required: true, message: 'Name is required' },
@@ -24,3 +25,35 @@ export const passwordRules = [
     }
   }
 ]
+
+export const selectRules = [
+  {required: true, message: 'Please select an option'}
+]
+
+export const addressRules = [
+  {required: true, message: 'Address is required'},
+  {max: 50, message: 'Address can only have at most 50 character'}
+]
+
+export const streetNumberRule = [
+  {required: true, message: 'Street Number is required'}
+]
+
+export const streetNameRule = [
+  {required: true, message: 'Street Name is required'}
+]
+
+export const suburbRule = [
+  {required: true, message: 'Suburb is required'}
+]
+
+export const stateRule = [
+  {required: true, message: 'State Name is required'}
+]
+
+export const postCodeRule = [
+  {required: true, message: 'Post Code is required'}
+]
+
+
+

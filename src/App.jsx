@@ -1,9 +1,9 @@
-import LoginPage from './pages/LoginPage'
+import LoginPage from './pages/Account/LoginPage'
 import { Route, Routes } from 'react-router-dom'
-import SignupPage from './pages/Signup'
+import SignupPage from './pages/Account/Signup'
 import './App.css'
-import ForgetPassword from './pages/ForgetPassword'
-import ResetPassword from './pages/ResetPassword'
+import ForgetPassword from './pages/Account/ForgetPassword'
+import ResetPassword from './pages/Account/ResetPassword'
 import ListProperties from './pages/ListProperties'
 
 function App() {
