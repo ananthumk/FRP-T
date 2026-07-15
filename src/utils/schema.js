@@ -1,4 +1,3 @@
-import { message } from "antd"
 
 export const nameRules = [
   { required: true, message: 'Name is required' },

@@ -28,11 +28,11 @@ const FrequencyPopup = ({ onClose, onSave }) => {
                 
                 {/* Sub heading */}
                 <div className='flex items-center justify-between'>
-                    <div className='flex items-center gap-2'>
+                    <div className={styles['icon-text']}>
                         <div className='p-2 rounded-lg bg-[#a7c957]'>
                             <BookOutlined className='text-2xl text-[#386641] align-middle!' />
                         </div>
-                        <div className='flex flex-col gap-0'>
+                        <div className='flex flex-col'>
                             <span className='text-[17.5px] md:text-[20px] font-semibold leading-7 text-[#001524]'>Rental Inspection</span>
                             <span className='text-[10px] md:text-sm leading-4'>Schedule Your monthly inspection for this rental property</span>
                         </div>

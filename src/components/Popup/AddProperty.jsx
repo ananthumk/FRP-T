@@ -74,7 +74,8 @@ const AddProperty = ({ onClose }) => {
             message.error(error?.errorFields?.[0]?.errors?.[0] || 'Please complete the required fields')
         }
     }
-
+   
+    // OnChange - Form
     const handleFormChange = (_, allValues) => {
           const currentValues = form.getFieldsValue(true)
           setPropertyDetails(prev => ({ ...prev, ...currentValues }))
@@ -93,7 +94,7 @@ const AddProperty = ({ onClose }) => {
                 
                 {/* Sub heading */}
                 <div className='flex items-center justify-between'>
-                    <div className='flex items-center gap-2'>
+                    <div className={styles['icon-text']}>
                         <HomeTwoTone className='text-2xl md:text-3xl align-middle!' />
                         <span className='text-[18px] md:text-[22px] font-semibold text-[#001524] leading-none'>Add Property</span>
                     </div>
@@ -102,7 +103,7 @@ const AddProperty = ({ onClose }) => {
                     </Button>
                 </div>
 
-                <div className='p-2 w-full grid grid-cols-2'>
+                <div className={`p-2 w-full ${styles['grid-styles']}`}>
                     <ReusableButton type='default' style={styles['full-change-btn-active']} content='Address' onClick={() => setActiveTab(0)} />
                     <ReusableButton type='default' style={activeTab === 1 ? styles['full-change-btn-active'] : styles['full-change-btn']} content='Property Information' onClick={() => setActiveTab(1)} />
                 </div>
@@ -119,7 +120,7 @@ const AddProperty = ({ onClose }) => {
 
                     {activeTab === 0 &&
                         <>
-                            <div className='grid grid-cols-2 gap-2 mb-4'>
+                            <div className={`${styles['grid-styles']} gap-2 mb-4`}>
                                 <FormField label='Unit Number' name='UnitNumber' placeholder='Unit Number' />
                                 <FormField label='Street Number' name='StreetNumber' placeholder='Street Number' rules={streetNumberRule} />
                                 <FormField label='Street Name' name='StreetName' placeholder='Street Name' rules={streetNameRule} />
@@ -145,7 +146,7 @@ const AddProperty = ({ onClose }) => {
 
                         <ReusableSelect label='Assigned To' name='AssignedTo' placeholder='Assigned To' rules={selectRules} options={agentOptions} loading={loadingOptions} />
 
-                        <div className='grid grid-cols-2 gap-2 mt-9!'>
+                        <div className={`${styles['grid-styles']} gap-2 mt-5`}>
                             <ReusableSelect label='Property For' name='PropertyFor' placeholder='Property For' rules={selectRules} options={propertyfor} loading={loadingOptions} />
 
                             <FormField label='Key No' name='KeyNo' placeholder='Key No' />

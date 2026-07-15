@@ -11,7 +11,7 @@ const StatsCard = ({ key, label, icon, color, content }) => {
         </div>
         <span className='text-[17px] md:text-[20px] leading-none font-medium text-slate-800'>{label}</span>
       </div>
-      <h2 className='mt-3 text-[20px] md:text-[24px] font-bold' style={{ fontColor: color}}>{content}</h2>
+      <h2 className={`mt-3 text-[20px] md:text-[24px] font-bold text-[#${color}]`}>{content}</h2>
     </div>
   )
 }

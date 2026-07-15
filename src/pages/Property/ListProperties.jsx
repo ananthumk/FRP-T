@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import Navbar from '../components/Navbar'
-import StatsCard from '../components/StatsCard'
+import Navbar from '../../components/Navbar'
+import StatsCard from '../../components/StatsCard'
 import { Button, Form, Input, Pagination, Select } from 'antd'
-import ReusableTable from '../components/Table'
-import PropertyFilters from '../components/PropertyFilters'
-import APIhandler from '../client/APIhandler'
-import { pageLimit, statsConfig, tableColumns } from '../utils/KeyValues'
-import ReusableButton from '../components/ReusableButton'
-import AddProperty from '../components/Popup/AddProperty'
+import ReusableTable from '../../components/Table'
+import PropertyFilters from '../../components/PropertyFilters'
+import APIhandler from '../../client/APIhandler'
+import { pageLimit, statsConfig, tableColumns } from '../../utils/KeyValues'
+import ReusableButton from '../../components/ReusableButton'
+import AddProperty from '../../components/Popup/AddProperty'
 import { PlusOutlined } from '@ant-design/icons'
-import { styles } from '../utils/Styles'
+import { styles } from '../../utils/Styles'
 
 
 const ListProperties = () => {
@@ -142,7 +142,7 @@ const ListProperties = () => {
 
                     {/* Pagination */}
                     <Pagination align='center' defaultCurrent={1} total={data.totalCount || 0} showSizeChanger={false}
-                        responsive showLessItems onChange={(page) => setJText((prev) => ({ ...prev, PageNo: page }))} />
+                        pageSize={jText.RecordsPerPage} responsive showLessItems onChange={(page) => setJText((prev) => ({ ...prev, PageNo: page }))} />
 
                 </div>
             </div>

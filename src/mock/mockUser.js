@@ -1,4 +1,4 @@
-const lsText = import.meta.env.LOCALSTORAGE_KEY
+const lsText = import.meta.env.VITE_LOCALSTORAGE_KEY
 
 const defaultUser = [
     { name: 'Arun', email: 'arun@example.com', password: 'arun@1234' },
