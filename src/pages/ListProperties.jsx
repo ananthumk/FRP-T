@@ -11,6 +11,7 @@ import ReusableButton from '../components/ReusableButton'
 import AddProperty from '../components/Popup/AddProperty'
 import { PlusOutlined } from '@ant-design/icons'
 import '../theme/listProperties.css'
+import { styles } from '../utils/Styles'
 
 
 const ListProperties = () => {
@@ -106,7 +107,7 @@ const ListProperties = () => {
                         </p>
                     </div>
 
-                    <ReusableButton type='primary' onClick={handleAddProperty} content={
+                    <ReusableButton type='primary' style={styles['primary-btn']} onClick={handleAddProperty} content={
                         <>
                             <span className='md:hidden'><PlusOutlined /></span>
                             <span className='hidden md:inline'>Add Property</span>

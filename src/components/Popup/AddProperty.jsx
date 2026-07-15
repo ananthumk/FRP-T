@@ -9,14 +9,18 @@ import ReusableButton from '../ReusableButton'
 import { HomeTwoTone } from '@ant-design/icons'
 import { propertyfor, propertyType } from '../../utils/KeyValues'
 import PopOver from '../PopOver'
+import { styles } from '../../utils/Styles'
+import FrequencyPopup from './FrequencyPopup'
 
 
 const AddProperty = ({ onClose }) => {
     const [form] = Form.useForm()
     const [agentOptions, setAgentOptions] = useState([])
     const [loadingOptions, setLoadingOptions] = useState(false)
-
+    const [activeTab, setActiveTab] = useState(0)
     const [propertyDetails, setPropertyDetails] = useState({})
+    const [frequencyOption, setFrequencyOption] = useState(false)
+
 
     useEffect(() => {
         const fetchAssignedOptions = async () => {
@@ -44,7 +48,6 @@ const AddProperty = ({ onClose }) => {
         try {
             const values = await form.validateFields()
             setPropertyDetails(values)
-            console.log(values)
             message.success('Property Added Successfully')
             setTimeout(() => {
                 form.resetFields()
@@ -52,7 +55,7 @@ const AddProperty = ({ onClose }) => {
                 onClose()
             }, 500);
         } catch (error) {
-            message.error(error.message)
+            message.error(error?.errorFields?.[0]?.errors?.[0] || 'Please complete the required fields')
         }
     }
 
@@ -61,53 +64,100 @@ const AddProperty = ({ onClose }) => {
         onClose()
     }
 
+    const handleNext = async () => {
+        try {
+            await form.validateFields()
+            setActiveTab(1)
+        } catch (error) {
+            message.error(error?.errorFields?.[0]?.errors?.[0] || 'Please complete the required fields')
+        }
+    }
+
     return (
         <PopOver>
-            <div className='flex items-center justify-between'>
-                <div className='flex items-center gap-2'>
-                    <HomeTwoTone className='text-3xl' />
-                    <h2 className='text-[22px] font-semibold! text-[#001524] mt-3!'>Add Property</h2>
+
+            <div className='w-full max-h-[90vh] h-auto my-auto overflow-y-scroll no-scrollbar max-w-xl rounded-2xl bg-white p-6 shadow-xl'>
+                
+                {/* Sub heading */}
+                <div className='flex items-center justify-between'>
+                    <div className='flex items-center gap-2'>
+                        <HomeTwoTone className='text-3xl' />
+                        <h2 className='text-[22px] font-semibold! text-[#001524] mt-3!'>Add Property</h2>
+                    </div>
+                    <Button type='text' onClick={onClose}>
+                        ✕
+                    </Button>
                 </div>
-                <Button type='text' onClick={onClose}>
-                    ✕
-                </Button>
+
+                <div className='p-2 w-full grid grid-cols-2'>
+                    <ReusableButton type='default' style={activeTab === 0 ? styles['full-change-btn-active'] : styles['full-change-btn']} content='Address' onClick={() => setActiveTab(0)} />
+                    <ReusableButton type='default' style={activeTab === 1 ? styles['full-change-btn-active'] : styles['full-change-btn']} content='Property Information' onClick={() => setActiveTab(1)} />
+                </div>
+                
+                {/* Form */}
+                <Form
+                    form={form}
+                    layout='vertical'
+                    onFinish={onFinish}
+                    onValuesChange={(_, allValues) => {
+                        setPropertyDetails(allValues)
+                        if (allValues?.PropertyFor === 'rental') setFrequencyOption(true)
+                        else setFrequencyOption(false)
+                    }}
+                    className='mt-4 text-sm text-[#495057]'
+                    requiredMark={customRequiredMark}
+                >
+
+                    {activeTab === 0 &&
+                        <>
+                            <div className='grid grid-cols-2 gap-2 mb-4'>
+                                <FormField label='Unit Number' name='UnitNumber' placeholder='Unit Number' />
+                                <FormField label='Street Number' name='StreetNumber' placeholder='Street Number' rules={streetNumberRule} />
+                                <FormField label='Street Name' name='StreetName' placeholder='Street Name' rules={streetNameRule} />
+                                <FormField label='Suburb' name='Suburb' placeholder='suburb' rules={suburbRule} />
+                            </div>
+
+                            <FormField label='State' name='State' placeholder='Enter your state' rules={stateRule} />
+                            <FormField label='Post Code' name='PostCode' placeholder='Enter your post code' rules={postCodeRule} />
+
+                            <div className='flex justify-end'>
+                                <ReusableButton type='primary' style={styles['primary-btn']} htmlType='button' onClick={handleNext} content='Next' />
+                            </div>
+                        </>
+                    }
+
+                    {activeTab === 1 && <>
+                        <ReusableSelect label='Property Type' name='PropertyType' placeholder='Select Property Type'
+                            rules={selectRules}
+                            options={propertyType}
+                        />
+
+                        <FormField label='Address' name='Address' placeholder='Enter your address' rules={addressRules} />
+
+                        <ReusableSelect label='Assigned To' name='AssignedTo' placeholder='Assigned To' rules={selectRules} options={agentOptions} loading={loadingOptions} />
+
+                        <div className='grid grid-cols-2 gap-2'>
+                            <ReusableSelect label='Property For' name='PropertyFor' placeholder='Property For' rules={selectRules} options={propertyfor} loading={loadingOptions} />
+
+                            <FormField label='Key No' name='KeyNo' placeholder='Key No' />
+                        </div>
+
+                        <div className='flex justify-end items-center gap-2'>
+                            <ReusableButton content='Cancel' style={styles['normal-btn']} onClick={handleCancel} />
+                            <ReusableButton type='primary' style={styles['primary-btn']} htmlType='submit' content='Save' />
+                        </div>
+                    </>}
+
+
+
+                </Form>
             </div>
+            {frequencyOption && <FrequencyPopup onClose={() => setFrequencyOption(false)} onSave={(values) => {
+                setPropertyDetails(prev => ({ ...prev, ...values }))
+                setFrequencyOption(false)
+            }} />}
 
-            <Form
-                form={form}
-                layout='vertical'
-                onFinish={onFinish}
-                className='mt-4 text-sm text-[#495057]'
-                requiredMark={customRequiredMark}
-            >
-                <ReusableSelect label='Property Type' name='PropertyType' placeholder='Select Property Type'
-                    rules={selectRules}
-                    options={propertyType}
-                />
-
-                <FormField label='Address' name='Address' placeholder='Enter your address' rules={addressRules} />
-
-                <div className='grid grid-cols-2 gap-2 mb-4'>
-                    <FormField label='Unit Number' name='UnitNumber' placeholder='Unit Number' />
-                    <FormField label='Street Number' name='StreetNumber' placeholder='Street Number' rules={streetNumberRule} />
-                    <FormField label='Street Name' name='StreetName' placeholder='Street Name' rules={streetNameRule} />
-                    <FormField label='Suburb' name='Suburb' placeholder='suburb' rules={suburbRule} />
-                </div>
-
-                <FormField label='State' name='State' placeholder='Enter your state' rules={stateRule} />
-                <FormField label='Post Code' name='PostCode' placeholder='Enter your post code' rules={postCodeRule} />
-
-                <ReusableSelect label='Assigned To' name='AssignedTo' placeholder='Assigned To' rules={selectRules} options={agentOptions} loading={loadingOptions} />
-                <ReusableSelect label='Property For' name='PropertyFor' placeholder='Property For' rules={selectRules} options={propertyfor} loading={loadingOptions} />
-
-                <FormField label='Key No' name='KeyNo' placeholder='Key No' />
-
-                <div className='flex justify-end items-center gap-2'>
-                    <ReusableButton content='Cancel' cancel onClick={handleCancel} />
-                    <ReusableButton type='primary' htmlType='submit' content='Save' />
-                </div>
-            </Form>
-        </PopOver>
+        </PopOver >
     )
 }
 

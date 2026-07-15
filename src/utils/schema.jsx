@@ -55,5 +55,13 @@ export const postCodeRule = [
   {required: true, message: 'Post Code is required'}
 ]
 
+export const routineInspectionFrequencyRules = [
+  {required: true, message: 'Routine Inspection Frequency is required'}
+]
+
+export const lastDateInspectionRule = [
+  {required: true, message: 'Last Date Inspection is required'}
+]
+
 
 
