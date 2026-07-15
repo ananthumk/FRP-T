@@ -14,7 +14,7 @@ const PropertyFilters = ({ searchQuery = '', onSearchCommit, category, onCategor
 
     return (
         <div className='flex flex-col gap-3 md:flex-row items-center justify-between bg-transparent'>
-            <Input.Search placeholder='Search here..' className='w-full! md:w-[40%]!'
+            <Input.Search placeholder='Search here..' className='w-full md:w-[40%]'
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 onSearch={onSearchCommit}

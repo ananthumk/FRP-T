@@ -1,6 +1,7 @@
-@layer theme, base, antd, components, utilities;
 
-@import "tailwindcss";
+@import "tailwindcss/theme.css";
+@import "tailwindcss/preflight.css";
+@import "tailwindcss/utilities.css";
 
 @theme {
     --font-outfit: "Outfit", sans-serif;

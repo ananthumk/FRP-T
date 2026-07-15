@@ -12,8 +12,8 @@ import { StyleProvider } from '@ant-design/cssinjs'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <StyleProvider layer>
-      <ConfigProvider theme={theme}>
+    <StyleProvider>
+      <ConfigProvider theme={theme} wave={{disabled: true}}>
         <AntdApp>
           <BrowserRouter>
             <App />

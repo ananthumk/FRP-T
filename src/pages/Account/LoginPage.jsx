@@ -74,7 +74,7 @@ const LoginPage = () => {
                             <a onClick={() => navigate('/forgot-password')} className='text-[#010506]! text-[16px] hover:text-[#0e7090]! transition-colors duration-300'>Forgot Password</a>
                         </div>
                         <Form.Item className='flex justify-center'>
-                            <Button type='primary' htmlType='submit' className='w-37.5!'>SIGN IN</Button>
+                            <Button type='primary' htmlType='submit' className='w-37.5'>SIGN IN</Button>
                         </Form.Item>
                     </Form>
 

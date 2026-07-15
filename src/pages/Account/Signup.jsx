@@ -97,7 +97,7 @@ const SignupPage = () => {
           
 
           <Form.Item className='flex justify-center'>
-            <Button type='primary' htmlType='submit' loading={submitting} className='w-37.5!' block>
+            <Button type='primary' htmlType='submit' loading={submitting} className='w-37.5' block>
               SIGN UP
             </Button>
           </Form.Item>

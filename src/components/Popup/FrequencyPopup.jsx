@@ -1,5 +1,5 @@
 import { Button, DatePicker, Form } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import { customRequiredMark } from '../../utils/RequiredMark'
 import FormField from '../FormField'
 import { routineInspectionFrequencyRules } from '../../utils/schema'
@@ -10,9 +10,15 @@ import { BookOutlined } from '@ant-design/icons'
 
 const FrequencyPopup = ({ onClose, onSave }) => {
     const [form] = Form.useForm()
+    const [selectedDate, setSelectedDate] = useState('')
 
     const handleFinish = (values) => {
-        if (typeof onSave === 'function') onSave(values)
+        const formattedValues = {
+            ...values,
+            LastInspectionDate: selectedDate,
+        }
+
+        if (typeof onSave === 'function') onSave(formattedValues)
         if (typeof onClose === 'function') onClose()
     }
 
@@ -24,11 +30,11 @@ const FrequencyPopup = ({ onClose, onSave }) => {
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center gap-2'>
                         <div className='p-2 rounded-lg bg-[#a7c957]'>
-                            <BookOutlined className='text-2xl text-[#386641]' />
+                            <BookOutlined className='text-2xl text-[#386641] align-middle!' />
                         </div>
                         <div className='flex flex-col gap-0'>
-                            <h2 className='text-[17.5px] md:text-[20px] font-semibold! p-0! m-0! text-[#001524]'>Rental Inspection</h2>
-                            <p className='text-[10px] md:text-sm m-0! p-0!'>Schedule Your monthly inspection for this rental property</p>
+                            <span className='text-[17.5px] md:text-[20px] font-semibold leading-7 text-[#001524]'>Rental Inspection</span>
+                            <span className='text-[10px] md:text-sm leading-4'>Schedule Your monthly inspection for this rental property</span>
                         </div>
                     </div>
                     <Button type='text' onClick={onClose}>
@@ -44,7 +50,15 @@ const FrequencyPopup = ({ onClose, onSave }) => {
 
                     <Form.Item label='Last Inspection Date' name='LastInspectionDate' rules={[{
                         required: true, message: 'Last Inspection Date is required'
-                    }]}><DatePicker format='DD/MM/YYYY' /></Form.Item>
+                    }]}
+                    >
+                        <DatePicker
+                            format='DD/MM/YYYY'
+                            onChange={(date, dateString) => {
+                                setSelectedDate(dateString)
+                            }}
+                        />
+                    </Form.Item>
 
                     {/* button */}
                     <div className='flex justify-between items-center gap-2'>

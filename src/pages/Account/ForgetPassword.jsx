@@ -95,9 +95,9 @@ const ForgetPassword = () => {
 
                 <div className='flex items-center gap-3'>
                     <div className='border border-gray-700 rounded-lg p-1'>
-                        <KeyOutlined className='text-4xl' />
+                        <KeyOutlined className='text-4xl align-middle!' />
                     </div>
-                    <h1 className='text-[32px] font-bold! mt-4!'>Forgot Password</h1>
+                    <span className='text-[32px] font-bold mt-4'>Forgot Password</span>
                 </div>
 
                 <Form
@@ -130,15 +130,15 @@ const ForgetPassword = () => {
 
                             {/* Countdown / Expiry Status */}
                             <div className='flex justify-between items-center mb-3 text-sm'>
-                                {expired ? <span className='text-red-500 font-medium!'>OTP Expired</span>
+                                {expired ? <span className='text-red-500 font-medium'>OTP Expired</span>
                                     : <span className='text-gray-700'>
-                                        Code expires in {' '}<span className='font-semibold! text-[#164c63]'>
+                                        Code expires in {' '}<span className='font-semibold text-[#164c63]'>
                                             {formatTime(timeLeft)}
                                         </span>
                                     </span>}
 
                                 <span onClick={handleGetOtp} className='text-[#164c63] hover:text-[#2a6d8a] transition-colors duration-300 cursor-pointer
-                                font-medium!'>Resent OTP</span>
+                                font-medium'>Resent OTP</span>
                             </div>
 
                             <Button type='primary' block disabled={expired} onClick={handleVerifyOtp}>
@@ -152,8 +152,8 @@ const ForgetPassword = () => {
                 </Form>
 
                 <div onClick={() => navigate('/signin')} className='flex self-center cursor-pointer text-[#164c63] hover:text-[#2a6d8a] transition-colors duration-300 items-center gap-2'>
-                    <ArrowLeftOutlined className='text-xl' />
-                    <p className='text-[15px]  font-semibold! mt-4!'>Back to log in</p>
+                    <ArrowLeftOutlined className='text-xl align-middle!' />
+                    <span className='text-[15px]  font-semibold'>Back to log in</span>
 
                 </div>
             </div>

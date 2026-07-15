@@ -10,7 +10,6 @@ import { pageLimit, statsConfig, tableColumns } from '../utils/KeyValues'
 import ReusableButton from '../components/ReusableButton'
 import AddProperty from '../components/Popup/AddProperty'
 import { PlusOutlined } from '@ant-design/icons'
-import '../theme/listProperties.css'
 import { styles } from '../utils/Styles'
 
 
@@ -93,7 +92,7 @@ const ListProperties = () => {
     }
 
     return (
-        <div className='bg-white min-h-dvh w-full bg-linear-to-r from-[#F7F7F7] via-[#FFFFFF] to-[#F5F3ED]'>
+        <div className='bg-white font-inter min-h-dvh w-full bg-linear-to-r from-[#F7F7F7] via-[#FFFFFF] to-[#F5F3ED]'>
             <Navbar />
 
             <div className='py-8 px-7'>
@@ -101,8 +100,8 @@ const ListProperties = () => {
                 <div className='flex justify-between'>
 
                     <div className='flex flex-col'>
-                        <h1 className='text-2xl text-[#001524] font-bold!'>Discover Properties That Match's You</h1>
-                        <p className='text-[17px] text-[#495057] font-medium! md:w-[58%]'>Explore verified listings for homes, apartments, villas and commercial spaces available for sale or rent in
+                        <h1 className='text-2xl text-[#001524] font-bold'>Discover Properties That Match's You</h1>
+                        <p className='text-[17px] text-[#495057] font-medium md:w-[58%]'>Explore verified listings for homes, apartments, villas and commercial spaces available for sale or rent in
                             your preferred location
                         </p>
                     </div>

@@ -42,9 +42,9 @@ const ResetPassword = () => {
 
                 <div className='flex items-center gap-3'>
                     <div className='border border-gray-700 rounded-lg p-1'>
-                        <SafetyOutlined className='text-4xl' />
+                        <SafetyOutlined className='text-4xl align-middle!' />
                     </div>
-                    <h1 className='text-[32px] font-bold! mt-4!'>Reset Password</h1>
+                    <span className='text-[32px] font-bold'>Reset Password</span>
                 </div>
 
                 <Form
@@ -80,8 +80,8 @@ const ResetPassword = () => {
                 </Form>
 
                 <div onClick={() => navigate('/forgot-password')} className='flex self-center cursor-pointer text-[#164c63] hover:text-[#2a6d8a] transition-colors duration-300 items-center gap-2'>
-                    <ArrowLeftOutlined className='text-xl' />
-                    <p className='text-[15px]  font-semibold! mt-4!'>Back to Forgot Password</p>
+                    <ArrowLeftOutlined className='text-xl align-middle!' />
+                    <span className='text-[15px]  font-semibold'>Back to Forgot Password</span>
 
                 </div>
             </div>

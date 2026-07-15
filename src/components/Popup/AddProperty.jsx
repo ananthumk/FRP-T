@@ -20,6 +20,7 @@ const AddProperty = ({ onClose }) => {
     const [activeTab, setActiveTab] = useState(0)
     const [propertyDetails, setPropertyDetails] = useState({})
     const [frequencyOption, setFrequencyOption] = useState(false)
+    const [prevPropertyFor, setPrevPropertyFor] = useState('')
 
 
     useEffect(() => {
@@ -46,8 +47,9 @@ const AddProperty = ({ onClose }) => {
 
     const onFinish = async () => {
         try {
-            const values = await form.validateFields()
-            setPropertyDetails(values)
+            await form.validateFields()
+            const currentValues = form.getFieldsValue(true)
+            setPropertyDetails(prev => ({ ...prev, ...currentValues }))
             message.success('Property Added Successfully')
             setTimeout(() => {
                 form.resetFields()
@@ -73,6 +75,17 @@ const AddProperty = ({ onClose }) => {
         }
     }
 
+    const handleFormChange = (_, allValues) => {
+          const currentValues = form.getFieldsValue(true)
+          setPropertyDetails(prev => ({ ...prev, ...currentValues }))
+
+          if (allValues.PropertyFor === 'rental' && prevPropertyFor !== 'rental') {
+            setFrequencyOption(true)
+          }
+
+          setPrevPropertyFor(allValues.PropertyFor)
+    }
+
     return (
         <PopOver>
 
@@ -81,8 +94,8 @@ const AddProperty = ({ onClose }) => {
                 {/* Sub heading */}
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center gap-2'>
-                        <HomeTwoTone className='text-3xl' />
-                        <h2 className='text-[22px] font-semibold! text-[#001524] mt-3!'>Add Property</h2>
+                        <HomeTwoTone className='text-2xl md:text-3xl align-middle!' />
+                        <span className='text-[18px] md:text-[22px] font-semibold text-[#001524] leading-none'>Add Property</span>
                     </div>
                     <Button type='text' onClick={onClose}>
                         ✕
@@ -90,7 +103,7 @@ const AddProperty = ({ onClose }) => {
                 </div>
 
                 <div className='p-2 w-full grid grid-cols-2'>
-                    <ReusableButton type='default' style={activeTab === 0 ? styles['full-change-btn-active'] : styles['full-change-btn']} content='Address' onClick={() => setActiveTab(0)} />
+                    <ReusableButton type='default' style={styles['full-change-btn-active']} content='Address' onClick={() => setActiveTab(0)} />
                     <ReusableButton type='default' style={activeTab === 1 ? styles['full-change-btn-active'] : styles['full-change-btn']} content='Property Information' onClick={() => setActiveTab(1)} />
                 </div>
                 
@@ -99,11 +112,7 @@ const AddProperty = ({ onClose }) => {
                     form={form}
                     layout='vertical'
                     onFinish={onFinish}
-                    onValuesChange={(_, allValues) => {
-                        setPropertyDetails(allValues)
-                        if (allValues?.PropertyFor === 'rental') setFrequencyOption(true)
-                        else setFrequencyOption(false)
-                    }}
+                    onValuesChange={handleFormChange}
                     className='mt-4 text-sm text-[#495057]'
                     requiredMark={customRequiredMark}
                 >
@@ -136,7 +145,7 @@ const AddProperty = ({ onClose }) => {
 
                         <ReusableSelect label='Assigned To' name='AssignedTo' placeholder='Assigned To' rules={selectRules} options={agentOptions} loading={loadingOptions} />
 
-                        <div className='grid grid-cols-2 gap-2'>
+                        <div className='grid grid-cols-2 gap-2 mt-9!'>
                             <ReusableSelect label='Property For' name='PropertyFor' placeholder='Property For' rules={selectRules} options={propertyfor} loading={loadingOptions} />
 
                             <FormField label='Key No' name='KeyNo' placeholder='Key No' />
