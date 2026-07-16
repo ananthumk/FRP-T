@@ -11,6 +11,7 @@ import ReusableButton from '../../components/ReusableButton'
 import AddProperty from '../../components/Popup/AddProperty'
 import { PlusOutlined } from '@ant-design/icons'
 import { styles } from '../../utils/Styles'
+import { useAuth } from '../../context/ContextAPI'
 
 
 const ListProperties = () => {
@@ -19,16 +20,18 @@ const ListProperties = () => {
     const [jText, setJText] = useState({
         "SortBy": "CreatedDate",
         "SortOrder": "Desc",
-        "AgencyId": 1,
+        "AgencyId": null,
         "RecordsPerPage": 10,
         "Search": "",
         "PropertyFor": null,
-        "LoggedUserId": 2,
+        "LoggedUserId": null,
         "PageNo": 1
     })
     const [category, setCategory] = useState('')
     const [loading, setLoading] = useState(true)
     const [popOver, setPopOver] = useState(false)
+
+    const { agencyId, loggedUserId } = useAuth()
 
     // Fetching Properties List
     const fetchData = async () => {
@@ -70,7 +73,10 @@ const ListProperties = () => {
     }
 
     useEffect(() => {
-        // setPopOver(false)
+        setJText((prev) => ({ ...prev, ['AgencyId']: agencyId, ['LoggedUserId']: loggedUserId }))
+    }, [agencyId, loggedUserId])
+
+    useEffect(() => {
         fetchData()
     }, [jText])
 

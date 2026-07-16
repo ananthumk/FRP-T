@@ -5,18 +5,36 @@ import './App.css'
 import ForgetPassword from './pages/Account/ForgetPassword'
 import ResetPassword from './pages/Account/ResetPassword'
 import ListProperties from './pages/Property/ListProperties'
-import ProtectedRoute from './components/ProtectedRoute'
+import ProtectedRoute from './components/Routing/ProtectedRoute'
+import PublicRoute from './components/Routing/PublicRoute'
 
 function App() {
 
   return (
    <div className=''>
       <Routes>
-        <Route path='/signin' element={<LoginPage />} />
-        <Route path='/signup' element={<SignupPage />} />
+
+        <Route path='/signin' element={
+          <PublicRoute>
+            <LoginPage />
+          </PublicRoute>
+        } />
+
+        <Route path='/signup' element={
+          <PublicRoute>
+            <SignupPage />
+          </PublicRoute>
+        } />
+
         <Route path='/forgot-password' element={<ForgetPassword />} />
         <Route path='reset-password' element={<ResetPassword />} />
-        <Route path='/list-property' element={<ProtectedRoute element={<ListProperties />} />} />
+
+        <Route path='/list-property' element={
+          <ProtectedRoute>
+            <ListProperties />
+          </ProtectedRoute>
+        } />
+
         <Route path='*' element={<Navigate to='/signin' replace />} />
       </Routes>
    </div>

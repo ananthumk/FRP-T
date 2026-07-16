@@ -11,12 +11,17 @@ const AuthContext = createContext()
 export const AuthProvider = ({children}) => {
     const [currentUser, setCurrentUser] = useState(null)
     const [token, setToken] = useState(null)
+    const [lastVisitedPath, setLastVisitedPath] = useState(null)
+    const [agencyId, setAgencyId] = useState(1)
+    const [loggedUserId, setLoggedUserId] = useState(2)
 
     useEffect(() => {
         const user = localStorage.getItem('Current_user')
         const t = localStorage.getItem('token')
+        const path = localStorage.getItem('lastVisitedPath')
         setCurrentUser(user || null)
         setToken(t || null)
+        setLastVisitedPath(path)
     }, [])
     
     const login = (email) => {
@@ -34,8 +39,13 @@ export const AuthProvider = ({children}) => {
         localStorage.removeItem('token')
     }
 
+    const updatedLastVisitedPath = (path) => {
+        setLastVisitedPath(path)
+        localStorage.setItem('lastVisitedPath', path)
+    }
+
     return (
-        <AuthContext.Provider value={{ user: currentUser, token, login, logout }}>
+        <AuthContext.Provider value={{ user: currentUser, token, lastVisitedPath, agencyId, loggedUserId, login, logout, updatedLastVisitedPath }}>
              {children}
         </AuthContext.Provider>
     )

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Form, Input, Button, Checkbox, message } from 'antd'
 import { emailRules, nameRules, passwordRules } from '../../utils/schema';
@@ -14,12 +14,6 @@ const SignupPage = () => {
   const [form] = Form.useForm()
   const [submitting, setSubmitting] = useState(false)
   const { login, token } = useAuth()
-
-  useEffect(() => {
-    if (token){
-      navigate('/list-property')
-    }
-  }, [token, navigate])
 
   const handleLoginPageNavigation = () => {
     navigate('/signin')

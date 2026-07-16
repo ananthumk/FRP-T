@@ -7,19 +7,12 @@ import { emailRules, passwordRules } from '../../utils/schema';
 import { customRequiredMark } from '../../utils/RequiredMark';
 import { checkCredentials } from '../../mock/mockUser';
 import { useAuth } from '../../context/ContextAPI';
-import { useEffect } from 'react';
-
 
 const LoginPage = () => {
     const navigate = useNavigate()
     const [form] = Form.useForm()
     const { login, token } = useAuth()
 
-    useEffect(() => {
-      if (token){
-        navigate('/list-property')
-      }
-    }, [token, navigate])
 
     const navigateToSignup = () => {
         navigate('/signup')
