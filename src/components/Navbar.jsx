@@ -3,20 +3,23 @@ import { SearchOutlined, BellOutlined, UserOutlined, LogoutOutlined } from '@ant
 import { Button, Popover } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { styles } from '../utils/Styles'
+import { useAuth } from '../context/ContextAPI'
 
 
 const Navbar = () => {
     
     const navigate = useNavigate()
+    const {logout} = useAuth()
 
     const handleLogout = () => {
+        logout()
         setTimeout(() => {
             navigate('/signin')
         }, 500);
     }
     
     const userPopupContent = () => (
-        <div className='flex flex-col min-w-30'>
+        <div className='flex flex-col w-auto'>
            <Button type='text' icon={<LogoutOutlined />} onClick={handleLogout} 
            className='text-black justify-start hover:text-[#054768] hover:bg-[#e1e1e1]' block>
             Logout
@@ -39,8 +42,9 @@ const Navbar = () => {
             {/* Actions */}
             <div className='flex justify-center md:gap-5 text-[20px] md:text-[22px]'>
                 <div className={styles['navbar-action-div']}>
-                    <SearchOutlined className={styles['navbar-action-icon']} />
+                    <SearchOutlined className={styles['navbar-action-icon']} />         
                 </div>
+
                 <div className={styles['navbar-action-div']}>
                     <BellOutlined className={styles['navbar-action-icon']} />
                 </div>

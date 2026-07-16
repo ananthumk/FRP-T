@@ -12,7 +12,7 @@ const APIhandler = async (method, url, payload = null) => {
 
         return response.data
     } catch (error) {
-        console.log('Error at ${url}: ', error)
+        console.log(`Error at ${url}: `, error)
         throw error
     }
 }

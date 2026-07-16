@@ -6,11 +6,20 @@ import Copyright from '../../components/Copyright';
 import { emailRules, passwordRules } from '../../utils/schema';
 import { customRequiredMark } from '../../utils/RequiredMark';
 import { checkCredentials } from '../../mock/mockUser';
+import { useAuth } from '../../context/ContextAPI';
+import { useEffect } from 'react';
 
 
 const LoginPage = () => {
     const navigate = useNavigate()
     const [form] = Form.useForm()
+    const { login, token } = useAuth()
+
+    useEffect(() => {
+      if (token){
+        navigate('/list-property')
+      }
+    }, [token, navigate])
 
     const navigateToSignup = () => {
         navigate('/signup')
@@ -24,10 +33,12 @@ const LoginPage = () => {
             return
         }
 
+        login(values.Email)
+
         message.success('Logged in successfully')
         form.resetFields()
-        setTimeout(() => {navigate('/list-property')}, 250)
-        
+        setTimeout(() => { navigate('/list-property') }, 250)
+
     }
 
 
@@ -85,11 +96,11 @@ const LoginPage = () => {
                     className='text-[#0d384a] font-semibold cursor-pointer hover:text-blue-500 transition-colors duration-200 underline'
                     tabIndex={0}
                     onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ''){
+                        if (e.key === 'Enter' || e.key === '') {
                             navigateToSignup()
                         }
                     }}
-                    > SIGN UP</span></p>
+                > SIGN UP</span></p>
 
             </div >
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Form, Input, Button, Checkbox, message } from 'antd'
 import { emailRules, nameRules, passwordRules } from '../../utils/schema';
@@ -6,35 +6,46 @@ import FormField from '../../components/FormField';
 import Copyright from '../../components/Copyright';
 import { customRequiredMark } from '../../utils/RequiredMark';
 import { addUserByEmail } from '../../mock/mockUser';
+import { useAuth } from '../../context/ContextAPI';
 
 
 const SignupPage = () => {
   const navigate = useNavigate()
   const [form] = Form.useForm()
   const [submitting, setSubmitting] = useState(false)
+  const { login, token } = useAuth()
+
+  useEffect(() => {
+    if (token){
+      navigate('/list-property')
+    }
+  }, [token, navigate])
 
   const handleLoginPageNavigation = () => {
     navigate('/signin')
   }
-
+ 
   const onFinish = (values) => {
     setSubmitting(true)
 
     try {
       const result = addUserByEmail(values.Email, values.Password, values.Name)
-    if (!result.success) {
-      message.error(result.message)
-      return
-    }
-    form.resetFields()
-    message.success('Account created successfully!')
-    setTimeout(() => {
-      navigate('/list-property')
-    }, 250);
+      if (!result.success) {
+        message.error(result.message)
+        return
+      }
+
+      login(values.Email)
+
+      form.resetFields()
+      message.success('Account created successfully!')
+      setTimeout(() => {
+        navigate('/list-property')
+      }, 250);
     } finally {
       setSubmitting(false)
     }
-    
+
   }
 
   return (
@@ -79,22 +90,22 @@ const SignupPage = () => {
               })
             ]} />
 
-          
-            <Form.Item
-              name='agreeToTerms'
-              valuePropName='checked'
-              rules={[
-                {
-                  validator: (_, value) =>
-                    value
-                      ? Promise.resolve()
-                      : Promise.reject(new Error('You must agree to terms and conditions'))
-                }
-              ]}
-            >
-              <Checkbox>I agree to the terms and conditions</Checkbox>
-            </Form.Item>
-          
+
+          <Form.Item
+            name='agreeToTerms'
+            valuePropName='checked'
+            rules={[
+              {
+                validator: (_, value) =>
+                  value
+                    ? Promise.resolve()
+                    : Promise.reject(new Error('You must agree to terms and conditions'))
+              }
+            ]}
+          >
+            <Checkbox>I agree to the terms and conditions</Checkbox>
+          </Form.Item>
+
 
           <Form.Item className='flex justify-center'>
             <Button type='primary' htmlType='submit' loading={submitting} className='w-37.5' block>

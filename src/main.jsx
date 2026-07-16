@@ -9,14 +9,17 @@ import './index.css'
 import App from './App.jsx'
 import theme from './theme/theme.js'
 import { StyleProvider } from '@ant-design/cssinjs'
+import { AuthProvider } from './context/ContextAPI.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <StyleProvider>
-      <ConfigProvider theme={theme} wave={{disabled: true}}>
+      <ConfigProvider theme={theme} wave={{ disabled: true }}>
         <AntdApp>
           <BrowserRouter>
-            <App />
+            <AuthProvider>
+              <App />
+            </AuthProvider>
           </BrowserRouter>
         </AntdApp>
       </ConfigProvider>
