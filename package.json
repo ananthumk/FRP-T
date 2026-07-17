@@ -17,13 +17,10 @@
     "@tailwindcss/vite": "^4.3.2",
     "antd": "^6.5.0",
     "axios": "^1.18.1",
-    "formik": "^2.4.9",
-    "lucide-react": "^1.23.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router-dom": "^7.18.1",
-    "tailwindcss": "^4.3.2",
-    "yup": "^1.7.1"
+    "tailwindcss": "^4.3.2"
   },
   "devDependencies": {
     "@types/react": "^19.2.17",

@@ -1,20 +1,28 @@
+import { useAuth } from "../context/ContextAPI"
 import { api } from "./axiosInstances"
 
-const APIhandler = async (method, url, payload = null) => {
-    try {
+const useAPIhandler = () => {
+    const { token, user } = useAuth()
+    const parsedUser = JSON.parse(user)
+
+    return async (method, url, payload = {}) => {
+        if (token && method !== 'get' && payload !== null) {
+            payload = {
+                ...payload,
+                LoggedUserId: parsedUser?.userId
+            }
+        }
+
         const response = await api({
-            method, 
-            url, 
+            method,
+            url,
             data: payload,
             timeout: 10000,
-            headers: { 'Content-Type' : 'application/json' }
+            headers: { 'Content-Type': 'application/json' }
         })
 
         return response.data
-    } catch (error) {
-        console.log(`Error at ${url}: `, error)
-        throw error
     }
 }
 
-export default APIhandler
+export default useAPIhandler

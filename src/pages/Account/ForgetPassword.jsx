@@ -80,7 +80,7 @@ const ForgetPassword = () => {
                 navigate('/reset-password')
                 setOtpSent(false)
                 setExpired(false)
-            }, 1500);
+            }, 500);
 
         } catch {
 

@@ -5,7 +5,7 @@ import StatsCard from '../../components/StatsCard'
 import { Button, Form, Input, Pagination, Select } from 'antd'
 import ReusableTable from '../../components/Table'
 import PropertyFilters from '../../components/PropertyFilters'
-import APIhandler from '../../client/APIhandler'
+import useAPIhandler from '../../client/APIhandler'
 import { pageLimit, statsConfig, tableColumns } from '../../utils/KeyValues'
 import ReusableButton from '../../components/ReusableButton'
 import AddProperty from '../../components/Popup/AddProperty'
@@ -24,21 +24,21 @@ const ListProperties = () => {
         "RecordsPerPage": 10,
         "Search": "",
         "PropertyFor": null,
-        "LoggedUserId": null,
         "PageNo": 1
     })
     const [category, setCategory] = useState('')
     const [loading, setLoading] = useState(true)
     const [popOver, setPopOver] = useState(false)
 
-    const { agencyId, loggedUserId } = useAuth()
+    const { agencyId } = useAuth()
+    const apiHandler = useAPIhandler()
 
     // Fetching Properties List
     const fetchData = async () => {
         setLoading(true)
         try {
 
-            const responseData = await APIhandler('post', '/property/getpropertylist', jText)
+            const responseData = await apiHandler('post', '/property/getpropertylist', jText)
 
             const updatedResponse = {
                 stats: {
@@ -73,8 +73,8 @@ const ListProperties = () => {
     }
 
     useEffect(() => {
-        setJText((prev) => ({ ...prev, ['AgencyId']: agencyId, ['LoggedUserId']: loggedUserId }))
-    }, [agencyId, loggedUserId])
+        setJText((prev) => ({ ...prev, ['AgencyId']: agencyId }))
+    }, [agencyId])
 
     useEffect(() => {
         fetchData()

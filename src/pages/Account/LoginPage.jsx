@@ -20,13 +20,12 @@ const LoginPage = () => {
 
     const onFinish = (values) => {
         const result = checkCredentials(values.Email, values.Password)
-        console.log(result)
-        if (!result) {
+        if (!result.status) {
             message.error('Invalid Credentials')
             return
         }
 
-        login(values.Email)
+        login(result.user)
 
         message.success('Logged in successfully')
         form.resetFields()

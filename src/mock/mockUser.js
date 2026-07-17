@@ -1,8 +1,8 @@
 const lsText = import.meta.env.VITE_LOCALSTORAGE_KEY
 
 const defaultUser = [
-    { name: 'Arun', email: 'arun@example.com', password: 'arun@1234' },
-    { name: 'Rahul', email: 'rahul@example.com', password: 'rahul@1234' }
+    { userId: 1, name: 'Arun', email: 'arun@example.com', password: 'arun@1234' },
+    { userId: 2, name: 'Rahul', email: 'rahul@example.com', password: 'rahul@1234' }
 ]
 
 
@@ -38,15 +38,22 @@ export const addUserByEmail = (email, password, name = '') => {
         return { success: false, message: 'User already exists' }
     }
 
-    mockUser.push({
+    const lastUser = mockUser[mockUser.length - 1] || { userId: 0 }
+    const newUser = {
+        userId: lastUser.userId + 1,
         name: name?.trim() || 'User',
         email: email,
         password
-    })
+    }
 
+    mockUser.push(newUser)
     saveUser(mockUser)
 
-    return { success: true, message: 'User added successfully' }
+    return { success: true, message: 'User added successfully', user: {
+        userId: newUser.userId,
+        name: newUser.name,
+        email: newUser.email
+    } }
 }
 
 export const setActiveResetEmail = (email) => {
@@ -71,5 +78,9 @@ export const checkCredentials = (email, password) => {
         return false
     }
 
-    return true
+    return {status: true, user: {
+        userId: user.userId,
+        name: user.name,
+        email: user.email
+    }}
 }

@@ -4,7 +4,7 @@ import { customRequiredMark } from '../../utils/RequiredMark'
 import ReusableSelect from '../ReusableSelect'
 import { addressRules, postCodeRule, selectRules, stateRule, streetNameRule, streetNumberRule, suburbRule } from '../../utils/schema'
 import FormField from '../FormField'
-import APIhandler from '../../client/APIhandler'
+import useAPIhandler from '../../client/APIhandler'
 import ReusableButton from '../ReusableButton'
 import { HomeTwoTone } from '@ant-design/icons'
 import { propertyfor, propertyType } from '../../utils/KeyValues'
@@ -21,13 +21,14 @@ const AddProperty = ({ onClose }) => {
     const [propertyDetails, setPropertyDetails] = useState({})
     const [frequencyOption, setFrequencyOption] = useState(false)
     const [prevPropertyFor, setPrevPropertyFor] = useState('')
+    const apiHandler = useAPIhandler()
 
 
     useEffect(() => {
         const fetchAssignedOptions = async () => {
             setLoadingOptions(true)
             try {
-                const responseData = await APIhandler('get', '/agency/agent/getActiveAgentDDL?agencyUID=ba137a8612994')
+                const responseData = await apiHandler('get', '/agency/agent/getActiveAgentDDL?agencyUID=ba137a8612994')
                 const updatedData = responseData?.object?.map(({ disabled, text, value }) => ({
                     disabled,
                     label: text,

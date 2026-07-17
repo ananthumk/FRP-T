@@ -24,12 +24,13 @@ const SignupPage = () => {
 
     try {
       const result = addUserByEmail(values.Email, values.Password, values.Name)
+      console.log(result)
       if (!result.success) {
         message.error(result.message)
         return
       }
 
-      login(values.Email)
+      login(result.user)
 
       form.resetFields()
       message.success('Account created successfully!')

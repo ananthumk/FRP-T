@@ -33,7 +33,7 @@ const ResetPassword = () => {
         message.success('Password Reset successfully!')
         setTimeout(() => {
           navigate('/signin')  
-        }, 1500);
+        }, 500);
     }
     return (
         <div className='bg-white min-h-dvh font-inter flex flex-col items-center'>

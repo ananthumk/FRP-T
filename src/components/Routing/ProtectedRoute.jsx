@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { useAuth } from '../../context/ContextAPI'
 import { Navigate, useLocation } from 'react-router-dom'
+import storage from '../../utils/localStorage'
 
 const ProtectedRoute = ({ children }) => {
     const { token, updatedLastVisitedPath } = useAuth()
     const location = useLocation()
-    const authToken = token || localStorage.getItem('token')
+    const authToken = token || storage.get('token')
 
     const path = location.pathname
      
