@@ -32,4 +32,18 @@
     -ms-overflow-style: none;  
     scrollbar-width: none; 
   }
+
+  .ant-input, .ant-select-selector, .ant-picker {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  .ant-btn {
+    box-shadow: none !important;
+  }
+
+  .ant-picker-focused, .ant-input-focused, .ant-select-focused .ant-select-selector {
+    box-shadow: none !important;
+    outline: none !important;
+  }
 }

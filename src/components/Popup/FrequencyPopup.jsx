@@ -2,7 +2,7 @@ import { Button, DatePicker, Form } from 'antd'
 import React, { useState } from 'react'
 import { customRequiredMark } from '../../utils/RequiredMark'
 import FormField from '../FormField'
-import { routineInspectionFrequencyRules } from '../../utils/schema'
+import { lastDateInspectionRule, routineInspectionFrequencyRules } from '../../utils/schema'
 import PopOver from '../PopOver'
 import ReusableButton from '../ReusableButton'
 import { styles } from '../../utils/Styles'
@@ -48,9 +48,7 @@ const FrequencyPopup = ({ onClose, onSave }) => {
 
                     <FormField label='Routine Inspection Frequency' name='RoutineInspectionFrequency' rules={routineInspectionFrequencyRules} />
 
-                    <Form.Item label='Last Inspection Date' name='LastInspectionDate' rules={[{
-                        required: true, message: 'Last Inspection Date is required'
-                    }]}
+                    <Form.Item label='Last Inspection Date' name='LastInspectionDate' rules={lastDateInspectionRule}
                     >
                         <DatePicker
                             format='DD/MM/YYYY'

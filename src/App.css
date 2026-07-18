@@ -1,0 +1,20 @@
+/* table.css */
+.custom-table .ant-table {
+  font-size: 14px;
+  font-weight: 400;
+  color: #1e293b;
+  background-color: #f7f7f2;
+  border-radius: 0px;
+}
+
+.custom-table .ant-table-thead > tr > th {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+  background: #f1f0ea;
+}
+
+.custom-table .ant-table-tbody > tr > td {
+  font-size: 13px;
+  font-weight: 400;
+}

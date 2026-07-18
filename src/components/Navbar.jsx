@@ -32,7 +32,7 @@ const Navbar = () => {
                   border-[#ced4da]'>
 
             {/* Menu Top Bars */}
-            <div className='flex justify-center font-inter mt-3 md:ml-1 font-normal items-center gap-3
+            <div className='flex justify-center font-inter mt-3 ml-7 font-normal items-center gap-3
              text-[#2c3e50] text-[14px] md:text-[16px]'>
                 <p className={styles['navbar-menu']}>Sale</p>
                 <p className={styles['navbar-menu']}>Lease</p>

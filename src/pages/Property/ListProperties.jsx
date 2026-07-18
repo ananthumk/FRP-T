@@ -98,7 +98,7 @@ const ListProperties = () => {
     }
 
     return (
-        <div className='bg-white font-inter min-h-dvh w-full bg-linear-to-r from-[#F7F7F7] via-[#FFFFFF] to-[#F5F3ED]'>
+        <div className= 'bg-white font-inter min-h-dvh w-full bg-linear-to-r from-[#F7F7F7] via-[#FFFFFF] to-[#F5F3ED]'>
             <Navbar />
 
             <div className='py-8 px-7'>

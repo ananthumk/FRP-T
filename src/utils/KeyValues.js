@@ -36,3 +36,64 @@ export const propertyfor = [
     {value: 'sale', label: 'Sale'},
     {value: 'rental', label: 'Rental'}
 ]
+
+// --------------
+
+// Transaction 
+
+export const transactionTable = [
+    {
+        title: 'Audit No',
+        dataIndex: 'auditNumber',
+        key: 'auditNumber',
+        sorter: true
+
+    },
+    {
+        title: 'Created At',
+        dataIndex: 'createdAt',
+        key: 'createdAt',
+        sorter: true
+    },
+    {
+        title: 'Transaction Date',
+        dataIndex: 'transactionDate',
+        key: 'transactionDate',
+        sorter: true
+    },
+    {
+        title: 'Reference',
+        dataIndex: 'reference',
+        key: 'reference',
+        sorter: true
+
+    },
+    {
+        title: 'Type',
+        dataIndex: 'sType',
+        key: 'sType',
+        sorter: true
+
+    },
+    {
+        title: 'Property Address',
+        dataIndex: 'propertyAddress',
+        key: 'propertyAddress',
+       sorter: true
+
+    },
+    {
+        title: 'Summary',
+        dataIndex: 'summary',
+        key: 'summary',
+       sorter: true
+
+    },
+    {
+        title: 'Amount',
+        dataIndex: 'amount',
+        key: 'amount',
+        sorter: true
+
+    },
+]
