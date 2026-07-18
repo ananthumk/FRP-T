@@ -47,3 +47,26 @@
     outline: none !important;
   }
 }
+
+.small-date-picker-popup .ant-picker-panel {
+  min-width: 190px !important;
+  width: 190px !important;
+  font-size: 12px !important;
+}
+
+.small-date-picker-popup .ant-picker-cell-inner {
+  padding: 0.25rem 0.25rem !important;
+}
+
+.small-date-picker-popup .ant-picker-header,
+.small-date-picker-popup .ant-picker-footer {
+  padding: 0.25rem 0.35rem !important;
+}
+
+.small-date-picker-popup .ant-picker-header-view button,
+.small-date-picker-popup .ant-picker-header-super-prev,
+.small-date-picker-popup .ant-picker-header-super-next,
+.small-date-picker-popup .ant-picker-header-prev,
+.small-date-picker-popup .ant-picker-header-next {
+  font-size: 12px !important;
+}

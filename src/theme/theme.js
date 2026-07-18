@@ -29,6 +29,11 @@ const theme = {
         },
         Checkbox: {
             colorPrimary: '#164c63'
+        },
+        Menu: {
+            itemSelectedBg: '#dad7cd',
+            itemSelectedColor: '#023047',
+            itemColor: '#6d6875'
         }
     }
 }

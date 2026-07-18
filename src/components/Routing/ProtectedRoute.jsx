@@ -25,7 +25,7 @@ const ProtectedRoute = () => {
     return (
         <div className='min-h-screen md:flex overflow-x-hidden'>
             <Sidebar />
-            <div className='flex-1 w-full xl:ml-64'>
+            <div className='flex-1 w-full lg:ml-50'>
                 <Outlet />
             </div>
         </div>

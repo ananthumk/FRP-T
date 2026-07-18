@@ -15,9 +15,9 @@ const TransactionFilters = ({ searchQuery = '', startDate, endDate, handleChange
     }
 
     return (
-        <div className='flex flex-row max-[400px]:flex-col md:ml-2 items-center gap-2'>
+        <div className='flex flex-row max-[500px]:flex-col md:ml-2 items-center gap-2'>
 
-            <div className='flex-1 min-w-0 sm:basis-1/2 grid grid-cols-2 gap-2'>
+            <div className='w-full min-w-0 sm:basis-1/2 grid grid-cols-2 gap-2 max-[500px]:w-full'>
                 <Input.Search
                     placeholder='Search here..'
                     size='small'
@@ -33,7 +33,7 @@ const TransactionFilters = ({ searchQuery = '', startDate, endDate, handleChange
                     size='small'
                     optionFilterProp='label'
                     value={limit}
-                    className='w-full md:w-auto rounded-md border border-slate-300 bg-white text-sm shadow-none focus:!outline-none focus:!ring-0'
+                    className='w-full rounded-md border border-slate-300 bg-white text-sm shadow-none focus:!outline-none focus:!ring-0'
                     onChange={(value) => handleChanges('RecordsPerPage', value)}
                     options={pageLimit}
                     style={{ boxShadow: 'none' }}
@@ -41,13 +41,14 @@ const TransactionFilters = ({ searchQuery = '', startDate, endDate, handleChange
 
             </div>
 
-            <div className='flex-1 min-w-0 sm:basis-1/2 grid grid-cols-2 gap-2'>
+            <div className='w-full min-w-0 sm:basis-1/2 grid grid-cols-2 gap-2  max-[500px]:w-full'>
                 <DatePicker
                     placeholder='Start Date'
                     size='small'
                     value={startDate}
                     onChange={(date) => handleChanges('StartDate', date)}
                     disabledDate={(current) => endDate ? current.isAfter(endDate, 'day') : false}
+                    popupClassName='small-date-picker-popup'
                     className='w-full rounded-md border border-slate-300 bg-white text-sm shadow-none focus:!outline-none focus:!ring-0'
                     style={{ boxShadow: 'none' }}
                 />
@@ -57,6 +58,7 @@ const TransactionFilters = ({ searchQuery = '', startDate, endDate, handleChange
                     value={endDate}
                     onChange={(date) => handleChanges('EndDate', date)}
                     disabledDate={(current) => startDate ? current.isBefore(startDate, 'day') : false}
+                    popupClassName='small-date-picker-popup'
                     className='w-full rounded-md border border-slate-300 bg-white text-sm shadow-none focus:!outline-none focus:!ring-0'
                     style={{ boxShadow: 'none' }}
                 />

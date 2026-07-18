@@ -1,5 +1,11 @@
 /* table.css */
+.custom-table {
+  width: 100%;
+  overflow-x: auto;
+}
 .custom-table .ant-table {
+  width: 100%;
+  table-layout: fixed;
   font-size: 14px;
   font-weight: 400;
   color: #1e293b;
@@ -17,4 +23,11 @@
 .custom-table .ant-table-tbody > tr > td {
   font-size: 13px;
   font-weight: 400;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.selected-custom-row > td {
+  background-color: #e7e9ea !important; 
 }

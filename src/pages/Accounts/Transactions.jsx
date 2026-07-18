@@ -4,7 +4,7 @@ import Navbar from '../../components/Navbar'
 import ReusableButton from '../../components/ReusableButton'
 import { styles } from '../../utils/Styles'
 import TransactionFilters from '../../components/TransactionFilters'
-import { message, Pagination } from 'antd'
+import { Grid, message, Pagination } from 'antd'
 import useAPIhandler from '../../client/APIhandler'
 import ReusableTable from '../../components/Table'
 import { transactionTable } from '../../utils/KeyValues'
@@ -32,7 +32,11 @@ const Transactions = () => {
         "SortBy": "AuditNumber",
         "Address": "",
     })
+    const [loading, setLoading] = useState(true)
     const apiHanlder = useAPIhandler()
+
+    const screens = Grid.useBreakpoint()
+    const isMobile = !screens.md
 
     const onSelectChange = (newSelectedRows) => {
         setSelectedRowKeys(newSelectedRows)
@@ -40,11 +44,16 @@ const Transactions = () => {
 
     const rowSelection = {
         selectedRowKeys, 
-        onchange: onSelectChange
+        onChange: onSelectChange
+    }
+
+    const getRowClassName = (record) => {
+        return selectedRowKeys.includes(record.auditNumber) ? 'selected-custom-row' : ''
     }
 
     const fetchData = async () => {
         try {
+            setLoading(true)
             const requestBody = {
                 ...body,
                 StartDate: body.StartDate ? body.StartDate.format('YYYY-MM-DD') : null,
@@ -56,8 +65,10 @@ const Transactions = () => {
                 totalCount: response?.totalCount
             }
             setTransactionDetails(updatedResponse)
+            setLoading(false)
         } catch (error) {
             message.error(error?.message || 'Something went wrong! Please try again later')
+            setLoading(false)
         }
     }
 
@@ -136,7 +147,7 @@ const Transactions = () => {
                 </div>
 
                 <div className='flex flex-col md:flex-row gap-2 items-center justify-between'>
-                    <div className={styles['icon-text']}>
+                    <div className={`${styles['icon-text']} h-9 w-full justify-between md:w-auto bg-white rounded-2xl`}>
                         {filterBtn.map((text) => (
                             <ReusableButton
                                 key={text.value}
@@ -162,6 +173,9 @@ const Transactions = () => {
                         rowKey='auditNumber'
                         rowSelection={rowSelection}
                         onChange={handleSortChange}
+                        loading={loading}
+                        rowClassName={getRowClassName}
+                        tableLayout={isMobile? 'auto': 'fixed'}
                     />
                 </div>
 

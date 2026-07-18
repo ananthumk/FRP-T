@@ -17,5 +17,5 @@ export const styles = {
 
    //Button Transaction:
    "t-btn": "w-auto py-0.5 px-2 bg-transparent border-0 shadow-none rounded-none outline-0",
-   "t-btn-active": "w-auto py-1 px-2 text-[#054768] bg-transparent rounded-none shadow-none font-semibold border-0 ouline-0 border-b border-b-[#054768]"
+   "t-btn-active": "w-auto h-8 px-5 text-[#fff] rounded-2xl shadow-none font-semibold border-0 ouline-0 bg-[#054768]"
 }

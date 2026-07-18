@@ -9,7 +9,6 @@ const ReusableTable = ({ columns, data, rowKey='key', pagination = false, ...res
       dataSource={data}
       rowKey={rowKey}
       pagination={pagination}
-      scroll={{ x: 1000}}
       {...rest}
       
     />

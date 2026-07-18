@@ -44,11 +44,11 @@ const getLevelKeys = (items1) => {
 const levelKeys = getLevelKeys(items)
 
 const Sidebar = () => {
-  const [stateOpenKeys, setStateOpenKeys] = useState(['2'])
+  const [stateOpenKeys, setStateOpenKeys] = useState(['2', '21'])
   const [mobileOpen, setMobileOpen] = useState(false)
   const navigate = useNavigate()
   const screens = useBreakpoint()
-  const isMobile = !screens.xl
+  const isMobile = !screens.lg
 
   const onOpenChange = (openKeys) => {
     const currentOpenKey = openKeys.find((key) => !stateOpenKeys.includes(key))
@@ -74,7 +74,7 @@ const Sidebar = () => {
   }
 
   const SidebarContent = (
-    <div className='flex h-screen w-full flex-col xl:w-65 space-y-5 overflow-hidden 
+    <div className='flex h-full w-full flex-col lg:w-50 space-y-5 overflow-hidden 
     bg-[#F1F6F8] px-4 py-10 border-gray-200 border-r'>
       <div className='flex items-center justify-center gap-2 px-2'>
         <img
@@ -97,7 +97,7 @@ const Sidebar = () => {
 
       <Divider className='my-0 text-black' />
 
-      <Menu selectable={false} mode='inline' items={footerItems} className='border-none bg-transparent' />
+      <Menu selectable={false} mode='inline' items={footerItems} onClick={handleMenuClick} className='border-none bg-transparent' />
     </div>
   )
 
@@ -114,7 +114,7 @@ const Sidebar = () => {
       <button
         type='button'
         onClick={() => setMobileOpen(true)}
-        className='fixed left-2 top-3 z-40 flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 bg-white shadow-sm'
+        className='fixed left-2 top-3 z-40 flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 bg-[#fff] shadow-sm'
         aria-label='Open menu'
       >
         <MenuOutlined className='text-md' />
