@@ -52,7 +52,7 @@ const Sidebar = () => {
 
   const onOpenChange = (openKeys) => {
     const currentOpenKey = openKeys.find((key) => !stateOpenKeys.includes(key))
-
+  
     if (currentOpenKey !== undefined) {
       const repeatIndex = openKeys
         .filter((key) => key !== currentOpenKey)
@@ -79,7 +79,7 @@ const Sidebar = () => {
       <div className='flex items-center justify-center gap-2 px-2'>
         <img
           src={`${import.meta.env.VITE_API_IMG_URL}/assets/images/mainLogo.png`}
-          className='w-6 h-7 md:w-20 md:h-16 object-contain'
+          className='w-12 h-15 md:w-20 md:h-16 object-contain'
           alt='company-logo'
         />
         <span className='text-[19px] font-semibold'>Foreal Estate</span>
