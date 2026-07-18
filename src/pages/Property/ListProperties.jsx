@@ -145,7 +145,8 @@ const ListProperties = () => {
                         onChangeRecordsPerPage={handleRecordsPerPage} />
 
                     {/* Table */}
-                    <ReusableTable columns={tableColumns} data={data.propertyListing} loading={loading}  pagination={false} />
+                    <ReusableTable columns={tableColumns} data={data.propertyListing} loading={loading}
+                    scroll={{x: 'max-content'}}  pagination={false} />
 
                     {/* Pagination */}
                     <Pagination align='center' defaultCurrent={1} total={data.totalCount || 0} showSizeChanger={false}
