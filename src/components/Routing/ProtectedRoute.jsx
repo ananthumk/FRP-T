@@ -1,4 +1,3 @@
-import { Grid } from 'antd'
 import React, { useEffect } from 'react'
 import { useAuth } from '../../context/ContextAPI'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
@@ -8,8 +7,6 @@ import storage from '../../utils/localStorage'
 const ProtectedRoute = () => {
     const { token, updatedLastVisitedPath } = useAuth()
     const location = useLocation()
-    const screens = Grid.useBreakpoint()
-    const isMobile = !screens.md
     const authToken = token || storage.get('token')
 
     const path = location.pathname
@@ -25,7 +22,7 @@ const ProtectedRoute = () => {
     return (
         <div className='min-h-screen md:flex overflow-x-hidden'>
             <Sidebar />
-            <div className='flex-1 w-full lg:ml-50'>
+            <div className='flex-1 w-full lg:ml-65'>
                 <Outlet />
             </div>
         </div>

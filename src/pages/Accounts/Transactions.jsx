@@ -4,7 +4,7 @@ import Navbar from '../../components/Navbar'
 import ReusableButton from '../../components/ReusableButton'
 import { styles } from '../../utils/Styles'
 import TransactionFilters from '../../components/TransactionFilters'
-import { Grid, message, Pagination } from 'antd'
+import { message, Pagination } from 'antd'
 import useAPIhandler from '../../client/APIhandler'
 import ReusableTable from '../../components/Table'
 import { transactionTable } from '../../utils/KeyValues'
@@ -35,8 +35,6 @@ const Transactions = () => {
     const [loading, setLoading] = useState(true)
     const apiHanlder = useAPIhandler()
 
-    const screens = Grid.useBreakpoint()
-    const isMobile = !screens.md
 
     const onSelectChange = (newSelectedRows) => {
         setSelectedRowKeys(newSelectedRows)
@@ -116,6 +114,7 @@ const Transactions = () => {
     }
 
     const handleSortChange = (pagination, filters, sorter) => {
+        console.log('p: ', pagination,'f: ', filter, 's: ',sorter)
         const sortBy = sorter.order ? sorter.field : 'AuditNumber'
         const sortOrder = sorter.order === 'ascend'? 'Asc' : 'Desc'
 
@@ -175,7 +174,6 @@ const Transactions = () => {
                         onChange={handleSortChange}
                         loading={loading}
                         rowClassName={getRowClassName}
-                        tableLayout={isMobile? 'auto': 'fixed'}
                     />
                 </div>
 

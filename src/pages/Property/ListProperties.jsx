@@ -29,6 +29,7 @@ const ListProperties = () => {
     const [category, setCategory] = useState('')
     const [loading, setLoading] = useState(true)
     const [popOver, setPopOver] = useState(false)
+    
 
     const { agencyId } = useAuth()
     const apiHandler = useAPIhandler()
@@ -144,7 +145,7 @@ const ListProperties = () => {
                         onChangeRecordsPerPage={handleRecordsPerPage} />
 
                     {/* Table */}
-                    <ReusableTable columns={tableColumns} data={data.propertyListing} loading={loading} pagination={false} />
+                    <ReusableTable columns={tableColumns} data={data.propertyListing} loading={loading}  pagination={false} />
 
                     {/* Pagination */}
                     <Pagination align='center' defaultCurrent={1} total={data.totalCount || 0} showSizeChanger={false}

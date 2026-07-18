@@ -44,7 +44,7 @@ const getLevelKeys = (items1) => {
 const levelKeys = getLevelKeys(items)
 
 const Sidebar = () => {
-  const [stateOpenKeys, setStateOpenKeys] = useState(['2', '21'])
+  const [stateOpenKeys, setStateOpenKeys] = useState(['1', '11'])
   const [mobileOpen, setMobileOpen] = useState(false)
   const navigate = useNavigate()
   const screens = useBreakpoint()
@@ -74,7 +74,7 @@ const Sidebar = () => {
   }
 
   const SidebarContent = (
-    <div className='flex h-full w-full flex-col lg:w-50 space-y-5 overflow-hidden 
+    <div className='flex h-full w-full flex-col lg:w-65 space-y-5 overflow-hidden 
     bg-[#F1F6F8] px-4 py-10 border-gray-200 border-r'>
       <div className='flex items-center justify-center gap-2 px-2'>
         <img
@@ -97,7 +97,8 @@ const Sidebar = () => {
 
       <Divider className='my-0 text-black' />
 
-      <Menu selectable={false} mode='inline' items={footerItems} onClick={handleMenuClick} className='border-none bg-transparent' />
+      <Menu selectable={false} mode='inline' items={footerItems}
+       onClick={handleMenuClick} className='border-none bg-transparent' />
     </div>
   )
 

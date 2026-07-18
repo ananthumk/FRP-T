@@ -34,6 +34,9 @@ const theme = {
             itemSelectedBg: '#dad7cd',
             itemSelectedColor: '#023047',
             itemColor: '#6d6875'
+        },
+        Drawer: {
+            colorBgElevated: '#F1F6F8'
         }
     }
 }
