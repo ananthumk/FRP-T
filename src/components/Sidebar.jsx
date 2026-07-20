@@ -6,8 +6,8 @@ import {
   SwapOutlined,
 } from '@ant-design/icons'
 import { Divider, Drawer, Grid, Menu } from 'antd'
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const { useBreakpoint } = Grid
 
@@ -44,11 +44,21 @@ const getLevelKeys = (items1) => {
 const levelKeys = getLevelKeys(items)
 
 const Sidebar = () => {
-  const [stateOpenKeys, setStateOpenKeys] = useState(['1', '11'])
+  const [stateOpenKeys, setStateOpenKeys] = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
+
+  const location = useLocation()
+
   const navigate = useNavigate()
   const screens = useBreakpoint()
   const isMobile = !screens.lg
+ 
+  const path = location.pathname
+
+  useEffect(() => {
+    if (path === '/list-property') setStateOpenKeys(['1', '11'])
+    if (path === '/transactions') setStateOpenKeys(['2', '21'])
+  }, [location])
 
   const onOpenChange = (openKeys) => {
     const currentOpenKey = openKeys.find((key) => !stateOpenKeys.includes(key))
@@ -89,6 +99,7 @@ const Sidebar = () => {
         mode='inline'
         defaultSelectedKeys={['11']}
         openKeys={stateOpenKeys}
+        selectedKeys={stateOpenKeys}
         onOpenChange={onOpenChange}
         onClick={handleMenuClick}
         items={items}

@@ -46,7 +46,7 @@ const Transactions = () => {
     }
 
     const getRowClassName = (record) => {
-        return selectedRowKeys.includes(record.auditNumber) ? 'selected-custom-row' : ''
+        return selectedRowKeys.includes(record.sType) ? 'selected-custom-row' : ''
     }
 
     const handleReset = () => {
@@ -128,7 +128,6 @@ const Transactions = () => {
 
     // Handle Sort by Column
     const handleSortChange = (pagination, filters, sorter) => {
-        console.log('p: ', pagination, 'f: ', filter, 's: ', sorter)
         const sortBy = sorter.order ? sorter.field : 'AuditNumber'
         const sortOrder = sorter.order === 'ascend' ? 'Asc' : 'Desc'
 

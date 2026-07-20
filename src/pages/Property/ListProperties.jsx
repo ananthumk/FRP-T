@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Navbar from '../../components/Navbar'
 import StatsCard from '../../components/StatsCard'
-import { Button, Form, Input, Pagination, Select } from 'antd'
+import { Button, Form, Grid, Input, Pagination, Select } from 'antd'
 import ReusableTable from '../../components/Table'
 import PropertyFilters from '../../components/PropertyFilters'
 import useAPIhandler from '../../client/APIhandler'
@@ -13,6 +13,7 @@ import { PlusOutlined } from '@ant-design/icons'
 import { styles } from '../../utils/Styles'
 import { useAuth } from '../../context/ContextAPI'
 
+const { useBreakpoint } = Grid
 
 const ListProperties = () => {
 
@@ -29,7 +30,9 @@ const ListProperties = () => {
     const [category, setCategory] = useState('')
     const [loading, setLoading] = useState(true)
     const [popOver, setPopOver] = useState(false)
-    
+
+    const screens = useBreakpoint()
+    const isMobile = !screens.lg
 
     const { agencyId } = useAuth()
     const apiHandler = useAPIhandler()
@@ -146,7 +149,8 @@ const ListProperties = () => {
 
                     {/* Table */}
                     <ReusableTable columns={tableColumns} data={data.propertyListing} loading={loading}
-                    scroll={{x: 'max-content'}}  pagination={false} />
+                     scroll={{ x: !isMobile ? '100%' : 'max-content' }}
+                     pagination={false} />
 
                     {/* Pagination */}
                     <Pagination align='center' defaultCurrent={1} total={data.totalCount || 0} showSizeChanger={false}

@@ -5,7 +5,7 @@ const StatsCard = ({ key, label, icon, color, content }) => {
 
   return (
     <div key={key} className='w-full min-w-30 md:max-w-75 rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm'>
-      <div className='flex items-center gap-2'>
+      <div className='flex items-center gap-2 md:flex-wrap'>
         <div className='rounded-lg py-1.5 px-2' style={{ backgroundColor: `${color}22`, color }}>
           {IconComponent ? <IconComponent className='text-xl md:text-2xl align-middle!' /> : null}
         </div>
