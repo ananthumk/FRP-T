@@ -37,6 +37,12 @@ const theme = {
         },
         Drawer: {
             colorBgElevated: '#F1F6F8'
+        }, 
+         DatePicker: {
+            cellWidth: 34,   
+            cellHeight: 24, 
+            fontSize: 14, 
+            inputFontSize: 13
         }
     }
 }

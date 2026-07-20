@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { pageLimit } from '../utils/KeyValues'
 import ReusableButton from './ReusableButton'
 import { DatePicker, Input, Select } from 'antd'
+import ReusableDatePicker from './ReusableDatePicker'
 
 const TransactionFilters = ({ searchQuery = '', startDate, endDate, handleChanges, limit }) => {
     const [searchInput, setSearchInput] = useState(searchQuery)
@@ -25,7 +26,8 @@ const TransactionFilters = ({ searchQuery = '', startDate, endDate, handleChange
                     onChange={(e) => setSearchInput(e.target.value)}
                     onSearch={handleSearch}
                     allowClear
-                    className='w-full rounded-md border border-slate-300 bg-white text-sm shadow-none focus:!outline-none focus:!ring-0'
+                    className='w-full rounded-md border border-slate-300 bg-white
+                     text-sm shadow-none focus:outline-none focus:ring-0'
                     style={{ boxShadow: 'none' }}
                 />
 
@@ -42,36 +44,12 @@ const TransactionFilters = ({ searchQuery = '', startDate, endDate, handleChange
             </div>
 
             <div className='w-full min-w-0 sm:basis-1/2 grid grid-cols-2 gap-2  max-[500px]:w-full'>
-                <DatePicker
-                    placeholder='Start Date'
-                    size='small'
-                    value={startDate}
-                    onChange={(date) => handleChanges('StartDate', date)}
-                    disabledDate={(current) => endDate ? current.isAfter(endDate, 'day') : false}
-                    popupClassName='small-date-picker-popup'
-                    className='w-full rounded-md border border-slate-300 bg-white text-sm shadow-none focus:!outline-none focus:!ring-0'
-                    style={{ boxShadow: 'none' }}
-                />
-                <DatePicker
-                    placeholder='End Date'
-                    size='small'
-                    value={endDate}
-                    onChange={(date) => handleChanges('EndDate', date)}
-                    disabledDate={(current) => startDate ? current.isBefore(startDate, 'day') : false}
-                    popupClassName='small-date-picker-popup'
-                    className='w-full rounded-md border border-slate-300 bg-white text-sm shadow-none focus:!outline-none focus:!ring-0'
-                    style={{ boxShadow: 'none' }}
-                />
+                <ReusableDatePicker placeholder='Start Date' value={startDate} name='StartDate' dValue={endDate}
+                 handleChanges={handleChanges} condition='isAfter' />
+                <ReusableDatePicker placeholder='End Date' value={endDate} name='EndDate' dValue={startDate}
+                 handleChanges={handleChanges} condition='isBefore' />
             </div>
 
-
-            {/* <ReusableButton
-                    type='primary'
-                    htmlType='button'
-                    content='Search'
-                    onClick={handleSearch}
-                    style='h-7.5 px-3 text-sm shadow-none'
-                /> */}
 
         </div>
     )

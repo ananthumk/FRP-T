@@ -8,7 +8,7 @@ import { message, Pagination } from 'antd'
 import useAPIhandler from '../../client/APIhandler'
 import ReusableTable from '../../components/Table'
 import { transactionTable } from '../../utils/KeyValues'
-import { DownloadOutlined, StockOutlined } from '@ant-design/icons'
+import { DownloadOutlined, StockOutlined, UndoOutlined } from '@ant-design/icons'
 
 const filterBtn = [
     { "label": "This Month", "value": "ThisMonth" },
@@ -41,12 +41,24 @@ const Transactions = () => {
     }
 
     const rowSelection = {
-        selectedRowKeys, 
+        selectedRowKeys,
         onChange: onSelectChange
     }
 
     const getRowClassName = (record) => {
         return selectedRowKeys.includes(record.auditNumber) ? 'selected-custom-row' : ''
+    }
+
+    const handleReset = () => {
+        setBody((prev) => ({
+            ...prev,
+            "RecordsPerPage": 10,
+            "Search": "",
+            "StartDate": null,
+            "EndDate": null,
+            "SortOrder": "Desc",
+            "SortBy": "AuditNumber",
+        }))
     }
 
     const fetchData = async () => {
@@ -82,6 +94,7 @@ const Transactions = () => {
         }))
     }
 
+    // Filter - (Month)
     const handleFilterClick = (value) => {
         setFilter(value)
 
@@ -113,12 +126,13 @@ const Transactions = () => {
         }))
     }
 
+    // Handle Sort by Column
     const handleSortChange = (pagination, filters, sorter) => {
-        console.log('p: ', pagination,'f: ', filter, 's: ',sorter)
+        console.log('p: ', pagination, 'f: ', filter, 's: ', sorter)
         const sortBy = sorter.order ? sorter.field : 'AuditNumber'
-        const sortOrder = sorter.order === 'ascend'? 'Asc' : 'Desc'
+        const sortOrder = sorter.order === 'ascend' ? 'Asc' : 'Desc'
 
-         setBody((prev) => ({
+        setBody((prev) => ({
             ...prev,
             SortBy: sortBy,
             SortOrder: sortOrder,
@@ -133,10 +147,10 @@ const Transactions = () => {
             <div className='py-8 px-7 space-y-4'>
 
                 <div className='flex items-center justify-between'>
-                   
-                        <h1 className='text-2xl font-bold'>Transactions</h1>
-                      
-                    
+
+                    <h1 className='text-2xl font-bold'>Transactions</h1>
+
+
                     <ReusableButton type='default' htmlType='button' content={
                         <div className='flex items-center gap-1'>
                             <DownloadOutlined className='text-lg align-middle' />
@@ -145,7 +159,9 @@ const Transactions = () => {
                     } />
                 </div>
 
+                {/* Filter Section */}
                 <div className='flex flex-col md:flex-row gap-2 items-center justify-between'>
+                    {/* Filter based on month */}
                     <div className={`${styles['icon-text']} h-9 w-full justify-between md:w-auto bg-white rounded-2xl`}>
                         {filterBtn.map((text) => (
                             <ReusableButton
@@ -159,12 +175,22 @@ const Transactions = () => {
                         ))}
                     </div>
 
-                    <TransactionFilters searchQuery={body?.Search} StartDate={body.StartDate}
-                    endDate={body.EndDate} handleChanges={handleChanges} limit={body.RecordsPerPage} />
+                    {/* Filter based on search, date, page limit */}
+                    <TransactionFilters searchQuery={body?.Search} startDate={body.StartDate}
+                        endDate={body.EndDate} handleChanges={handleChanges} limit={body.RecordsPerPage} />
                 </div>
 
+                {/*Filter Reset Button */}
+                <div className='flex justify-end'>
+                    <ReusableButton type='default' content={
+                        <div className={styles['icon-text']}>
+                            <UndoOutlined className='text-xl align-middle' />
+                            <span>Reset</span>
+                        </div>
+                    } onClick={handleReset} style='bg-transparent border-none outline-none p-0' />
+                </div>
 
-
+                {/* Table */}
                 <div className='custom-table'>
                     <ReusableTable
                         columns={transactionTable}
